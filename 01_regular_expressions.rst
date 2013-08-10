@@ -44,8 +44,8 @@ referring to it until you become familiar with these characters. The `Regular ex
 translating a line of seemingly random characters into a meaningful pattern. The table will be 
 followed by further explanations and examples for each of the items in the table.
 
-.. index:: Regular expression vocabulary
 .. _Regular expression vocabulary table:
+.. index:: Regular expression vocabulary
 .. index:: Table - Regular expression vocabulary
 
 ==========  =======
@@ -169,53 +169,59 @@ Character  Meaning
 The term "metacharacter" is often also applied to characters such as \verb=.= and \verb=$= which have special 
 meanings within regular expressions.
 
-\subsection{Anchoring text}
-\index{Anchors}
-\index{\verb=^=}
-\index{\verb=$=}
+Anchoring text
+``````````````
+
+.. index:: Anchors
+.. index:: ^
+.. index:: $
+
 
 Referred to as anchor characters, these ensure that a string starts with, or ends with, a 
 particular character, or sequence of characters. Since this is a very common need, these are 
-included in this basic vocabulary. Consider the examples in table \ref{anchorexamples}:
+included in this basic vocabulary. Consider the examples in the `anchor examples table`_ 
 
-\begin{table}[ht]
-\caption{Examples of using pattern anchors}
-\label{anchorexamples}
-\begin{tabular}{l | p{12cm}}
-Example & Meaning\\ \hline \hline
-\verb=^/= & This matches any string that starts with a slash \\ \hline
-\verb=\.jpg$= & This pattern matches any string that ends with .jpg. \\ \hline
-\verb=^/$= & Matches a string that starts with, and ends with, a slash. That is, it will only 
-match a string that is a single slash, and nothing else. \\ \hline
-\verb=^$= & Matched an empty string - that
-is, a string that has nothing between its start and its end. \\ \hline
-\end{tabular}
-\end{table}
+.. index:: Anchor examples
+.. index:: Table - Anchor exmaples
+.. _anchor examples table:
+
+=======  =======
+Example  Meaning
+-------  -------
+^/       This matches any string that starts with a slash
+.jpg$    This pattern matches any string that ends with .jpg.
+/$       Matches a string that starts with, and ends with, a slash. That is, it will only match a string that is a single slash, and nothing else.
+^$       Matched an empty string - that is, a string that has nothing between its start and its end.
+=======  =======
 
 Remember, as you craft your regular expressions, that they are, by
 default, a substring match. Which is to say, a pattern of \verb=cow=
 matches cow, scow, coward, and pericowperitis, because they all
-contain ``cow'' somewhere in them. Using the anchor characters allow you
-to be more specific as to what you wanted to match. The \verb=\b=
+contain "cow" somewhere in them. Using the anchor characters allow you
+to be more specific as to what you wanted to match. The ``\b``
 metacharacter, introduced above, can also be useful in some contexts,
 but perhaps less so when you're dealing with URLs.
 
-\subsection{Matching one or more characters}
-\index{+}
+Matching one or more characters
+```````````````````````````````
+
+.. index:: +
 
 The + character allows a pattern or character to match more than once. For example, the 
 following pattern will allow for common misspellings of the word "giraffe".
 
-\verb=giraf+e+=
+::
 
-This pattern will allow one or more f's, as well as one or more e's. So it matches 
-``girafe'', ``giraffe'', and ``giraffee''. It will also match ``girafffffeeeeee''.
+    giraf+e+
 
-Be sure to use \verb=+= rather than \verb=*= when you want to ensure
-non-empty matches.
+This pattern will allow one or more f's, as well as one or more e's. So it matches "girafe", "giraffe", and "giraffee". It will also match "girafffffeeeeee".
 
-\subsection{Matching zero or more characters}
-\index{*}
+Be sure to use ``+`` rather than ``*`` when you want to ensure non-empty matches.
+
+Matching zero or more characters
+````````````````````````````````
+
+.. index:: *
 
 The * character allows the previous character to match zero or more times. That is to say, it's
 exactly the same as +, except that it also allows for the pattern to not match at all. This is
@@ -223,7 +229,9 @@ often used when + was meant, which can result in some confusion when it matches 
 string. As an example, we'll use a slight modification of the pattern used in the above
 section:
 
-\verb=giraf*e*=
+::
+
+    giraf*e*
 
 This pattern matches the same strings listed above (``giraffe'', ``girafe'' and ``giraffee'')
 but will also match the string "giraeeeee", which contains zero "f" characters, as well as the

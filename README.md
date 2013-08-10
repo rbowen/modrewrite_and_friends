@@ -1,5 +1,5 @@
-modrewrite_and_friends
-======================
+mod_rewrite And Friends
+=======================
 
 Book: The definitive guide to mod_rewrite, URL manipulation, and content munging with the Apache http server
 

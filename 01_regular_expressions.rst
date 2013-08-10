@@ -153,21 +153,20 @@ verbose patterns.
 Character  Meaning
 ---------  -------
 
-\\d        Match any character in the range 0 - 9\\ \hline
-\\D        Match any character NOT in the range 0 - 9\\ \hline
-\\s        Match any whitespace characters (space, tab etc.).\\ \hline
-\\S        Match any character NOT whitespace (space, tab).\\ \hline
-\\w        Match any character in the range 0 - 9, A - Z and a - z\\ \hline
-\\W        Match any character NOT the range 0 - 9, A - Z and a - z\\ \hline
-\\b        Word boundary. Match any character(s) at the beginning (\verb#\babc#) and/or end (\verb#abc\b#) of a word, thus \verb#\bcow\b# will find cow but not cows, but \verb#\bcow# will find cows. \\ \hline
-\\B        Not a word boundary. Match any character(s) NOT at the beginning(\verb#\Babc#) and/or end (\verb#xx\B#) of a word, thus \verb#\Bcow\B# will find scows but not cows, but \verb#cow\B# will find coward.\\ \hline
-\\t        Match a tab character \\ \hline
-\\n        Match a newline character \\ \hline
-\\x        Matches a character with a particular hex code. For example, \x5A= would match a Z, which has a hex code of 5A.\\ \hline
+\\d        Match any character in the range 0 - 9
+\\D        Match any character NOT in the range 0 - 9
+\\s        Match any whitespace characters (space, tab etc.).
+\\S        Match any character NOT whitespace (space, tab).
+\\w        Match any character in the range 0 - 9, A - Z and a - z
+\\W        Match any character NOT the range 0 - 9, A - Z and a - z
+\\b        Word boundary. Match any character(s) at the beginning (``\babc``) and/or end (``abc\b``) of a word, thus ``\bcow\b`` will find cow but not cows, but ``\bcow`` will find cows.
+\\B        Not a word boundary. Match any character(s) NOT at the beginning(``\Babc``) and/or end (``cow\B``) of a word, thus ``\Bcow\B`` will find scows but not cows, but ``cow\B`` will find coward.
+\\t        Match a tab character
+\\n        Match a newline character
+\\x        Matches a character with a particular hex code. For example, ``\x5A`` would match a Z, which has a hex code of 5A.
 =========  =======
 
-The term "metacharacter" is often also applied to characters such as \verb=.= and \verb=$= which have special 
-meanings within regular expressions.
+The term "metacharacter" is often also applied to characters such as ``.`` and ``$`` which have special meanings within regular expressions.
 
 Anchoring text
 ``````````````
@@ -182,7 +181,7 @@ particular character, or sequence of characters. Since this is a very common nee
 included in this basic vocabulary. Consider the examples in the `anchor examples table`_ 
 
 .. index:: Anchor examples
-.. index:: Table - Anchor exmaples
+.. index:: Table - Anchor examples
 .. _anchor examples table:
 
 =======  =======
@@ -233,48 +232,51 @@ section:
 
     giraf*e*
 
-This pattern matches the same strings listed above (``giraffe'', ``girafe'' and ``giraffee'')
-but will also match the string "giraeeeee", which contains zero "f" characters, as well as the
-string "gira", which contains zero "f" characters and zero "e" characters.
+This pattern matches the same strings listed above ("giraffe", "girafe" and "giraffee") but will also match the string "giraeeeee", which contains zero "f" characters, as well as the string "gira", which contains zero "f" characters and zero "e" characters.
 
-Most commonly, you'll see it used in conjunction with the . character, meaning ``match
-anything.'' Frequently, in that case, the person using it has forgotten that regular expressions
-are substring matches. For example, consider this pattern:
+Most commonly, you'll see it used in conjunction with the . character, meaning "match anything." Frequently, in that case, the person using it has forgotten that regular expressions are substring matches. For example, consider this pattern:
 
-\verb=.*\.gif$=
+::
 
-The intent of that pattern is to match any string ending in .gif. The \verb=$= insists that it is at the 
-end of the string, and the \verb=\= before the . makes that a literal . character, rather than the wildcard 
-. character. In this particular case, the \verb=.*= was there to mean "starts with anything," but is 
+    .*\.gif$
+
+The intent of that pattern is to match any string ending in .gif. The ``$`` insists that it is at the 
+end of the string, and the ``\`` before the . makes that a literal . character, rather than the wildcard 
+. character. In this particular case, the ``.*`` was there to mean "starts with anything," but is 
 completely unnecessary, and will only serve to consume time in the matching process.
 
-A more useful example of the \verb=*= character is one which checks for a comment line in an 
+A more useful example of the ``*`` character is one which checks for a comment line in an 
 Apache configuration file. The first non-space character needs to be a \verb=#=, but the spaces are 
 optional:
 
-\verb=^\s*#=
+::
+
+    ^\s*#
 
 This pattern, then, matches a string that might (but doesn't have to) begin with 
-whitespace, followed by a \verb=#=. This ensures that the first non-space character of the line is a \verb=#=.
+whitespace, followed by a ``#``. This ensures that the first non-space character of the line is a \verb=#=.
 
-\subsection{Repetition quantifiers}
-\index{\verb={n,m}=}
+Repetition quantifiers
+``````````````````````
+
+.. index:: {n,m}
+.. index:: Repetition
+
 
 If you want to match a particular number of times, you can use the
-\verb={n,m}= quantifier to specify the range of times you wish to match.
+``{n,m}`` quantifier to specify the range of times you wish to match.
 The possibilities of how you can specify this are shown in table
-\ref{repetition_quantifiers}.
+`repetition quantifiers table`_
 
-\begin{table}[ht]
-\caption{Repetition quantifiers}
-\label{repetition_quantifiers}
-\begin{tabular}{l | p{12cm}}
-Pattern & Meaning\\ \hline \hline
-\verb={n}= & Match exactly n times \\ \hline
-\verb={n,}= & Match at least n times \\ \hline
-\verb={n,m}= & Match at least n times, but not more than m times \\ \hline 
-\end{tabular}
-\end{table}
+.. _repetition quantifiers table:
+
+=======  =======
+Pattern  Meaning
+-------  -------
+{n}      Match exactly n times
+{n,}     Match at least n times
+{n,m}    Match at least n times, but not more than m times
+=======  =======
 
 Greedy Matching
 ```````````````
@@ -284,18 +286,18 @@ Greedy Matching
 
 In the case of all of the repetition characters above, matching is greedy. That is, the regular 
 expression matches as much as it possibly can. That is, if you apply the regular expression 
-\verb=a+= to the string \verb~aaaa~, matches the entire string, and not be satisfied by just the first 
+``a+`` to the string ``aaaa``, matches the entire string, and not be satisfied by just the first 
 a. This is particularly important when you are using the \verb=.*= syntax, which can 
 occasionally match more than you thought it would. I'll give some examples of this after 
 we've discussed a few more metacharacters.
 
 On the other hand, if you wish for matches to not be greedy, you can
-offset the greedy nature of the repetition character by putting a ?
+offset the greedy nature of the repetition character by putting a ``?``
 after it.
 
 Consider, for example, a scenario where I want to match everything between two
 slashes in a URL. I'll be applying the regular expression to the URI
-\verb=/one/two/three/=, and I'll try a greedy, and not-greedy, regular
+``/one/two/three/``, and I'll try a greedy, and not-greedy, regular
 expression. Table \ref{table_greedy_example} shows the results of these
 patterns.
 

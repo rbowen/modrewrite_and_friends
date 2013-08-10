@@ -298,22 +298,22 @@ after it.
 Consider, for example, a scenario where I want to match everything between two
 slashes in a URL. I'll be applying the regular expression to the URI
 ``/one/two/three/``, and I'll try a greedy, and not-greedy, regular
-expression. Table \ref{table_greedy_example} shows the results of these
+expression. The `table of greedy examples`_ shows the results of these
 patterns.
 
-\begin{table}[ht]
-\caption{Greedy vs non-greedy patterns applied to /one/two/three/}
-\label{table_greedy_example}
-\begin{tabular}{l | p{12cm}}
-Pattern & Matches \\ \hline \hline
-\verb=/(.*)/= & one/two/three \\ \hline
-\verb=/(.*?)/= & one \\ \hline
-\end{tabular}
-\end{table}
+.. _table of greedy examples:
+
+=======  =======
+Pattern  Matches
+-------  -------
+
+/(.*)/   one/two/three
+/(.*?)/  one
+
+-------  -------
 
 The first regex is greedy, and matches as much as it possibly can, going
-out to the last slash. The second is non-greedy, and so stops as early as it can, when it encounter
-the second slash.
+out to the last slash. The second is non-greedy, and so stops as early as it can, when it encounters the second slash.
 
 \subsection{Making a match optional}
 \index{Optional matching}

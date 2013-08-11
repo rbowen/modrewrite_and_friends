@@ -194,7 +194,7 @@ Example  Meaning
 =======  =======
 
 Remember, as you craft your regular expressions, that they are, by
-default, a substring match. Which is to say, a pattern of \verb=cow=
+default, a substring match. Which is to say, a pattern of ``cow``
 matches cow, scow, coward, and pericowperitis, because they all
 contain "cow" somewhere in them. Using the anchor characters allow you
 to be more specific as to what you wanted to match. The ``\b``
@@ -246,7 +246,7 @@ end of the string, and the ``\`` before the . makes that a literal . character, 
 completely unnecessary, and will only serve to consume time in the matching process.
 
 A more useful example of the ``*`` character is one which checks for a comment line in an 
-Apache configuration file. The first non-space character needs to be a \verb=#=, but the spaces are 
+Apache configuration file. The first non-space character needs to be a ``#``, but the spaces are 
 optional:
 
 ::
@@ -254,7 +254,7 @@ optional:
     ^\s*#
 
 This pattern, then, matches a string that might (but doesn't have to) begin with 
-whitespace, followed by a ``#``. This ensures that the first non-space character of the line is a \verb=#=.
+whitespace, followed by a ``#``. This ensures that the first non-space character of the line is a ``#``.
 
 Repetition quantifiers
 ``````````````````````
@@ -287,7 +287,7 @@ Greedy Matching
 In the case of all of the repetition characters above, matching is greedy. That is, the regular 
 expression matches as much as it possibly can. That is, if you apply the regular expression 
 ``a+`` to the string ``aaaa``, matches the entire string, and not be satisfied by just the first 
-a. This is particularly important when you are using the \verb=.*= syntax, which can 
+a. This is particularly important when you are using the ``.*`` syntax, which can 
 occasionally match more than you thought it would. I'll give some examples of this after 
 we've discussed a few more metacharacters.
 
@@ -385,11 +385,11 @@ use it later on:
 
 In the event that this pattern matches, we will capture the matching value in a special 
 variable, ``$1``. (In some contexts, the variable may be called ``%1`` instead.) If you have more 
-than one set of parentheses, the second one will be captured to the variable `$2`, the third to `$3`, 
-and so on. Only values up through `$9` are available, however.  The reason for this is that `$10` 
-would be ambiguous. It might mean `$1`, followed by a literal zero (0), or it might mean `$10`.  
+than one set of parentheses, the second one will be captured to the variable ``$2``, the third to ``$3``, 
+and so on. Only values up through ``$9`` are available, however.  The reason for this is that ``$10`` 
+would be ambiguous. It might mean ``$1``, followed by a literal zero (0), or it might mean ``$10``.  
 Rather than providing additional syntax to disambiguate this term, the designer of 
-mod\_rewrite instead chose to only provide backreferences through `$9`.
+mod\_rewrite instead chose to only provide backreferences through ``$9``.
 
 The exact way in which you can exploit this feature will be more obvious later, once we 
 start looking at the RewriteRule directive in `Chapter three, RewriteRules`_
@@ -416,7 +416,7 @@ Character Classes
 .. index:: [ ]
 
 A character class allows you to define a set of characters, and match any one of them. There 
-are several built-in character classes, like the ``\s`` metacharacter that you saw above.  Using the `[ ]` notation lets you define your own
+are several built-in character classes, like the ``\s`` metacharacter that you saw above.  Using the ``[ ]`` notation lets you define your own
 custom character classes. As a very simple example, consider the following:
 
 ::
@@ -437,8 +437,8 @@ directory path for that subset of users, and the username ends up in the ``$1`` 
 The character class syntax also allows you to specify a range of characters fairly easily. 
 For example, if you wanted to match a number between 1 and 5, you can use the character class ``[1-5]``.
 
-Within a character class, the `^` character has special meaning, if it is the first character in 
-the class. The character class `[^abc]` is the opposite of the character class `[abc]`. That is, it 
+Within a character class, the ``^`` character has special meaning, if it is the first character in 
+the class. The character class ``[^abc]`` is the opposite of the character class ``[abc]``. That is, it 
 matches any character which is not a, b, or c.
 
 Which brings us back to the example above, where we are attempting to match a 
@@ -450,10 +450,10 @@ stop matching when it reaches a slash, we need to match only "not slash" charact
 
     /home/([abc][^/]+)
 
-I've replaced the `.*` with `[^/]+` which has the effect that, rather than matching any 
+I've replaced the ``.*`` with ``[^/]+`` which has the effect that, rather than matching any 
 character, it matches only not-slash characters. In other words, it will only match up to a 
-slash, or the end of the string, whichever comes first. Also, I've used `+` instead of `*`, since 
-one-character usernames are typically not permitted. Now, `$1` will contain the username, 
+slash, or the end of the string, whichever comes first. Also, I've used ``+`` instead of ``*``, since 
+one-character usernames are typically not permitted. Now, ``$1`` will contain the username, 
 whereas, before, it could possibly have contained other directory path components after the 
 username.
 
@@ -497,7 +497,7 @@ pattern to yourself in terms like this, because it's a good start towards writin
 itself.
 
 To express this as a regular expression, let's take the component parts. The catch all 
-"something" part can likely be expressed as `.*` and the `.` and `@` parts are literal characters.
+"something" part can likely be expressed as ``.*`` and the ``.`` and ``@`` parts are literal characters.
 So, this gives us a starting point of:
 
 ::
@@ -514,7 +514,7 @@ contain certain other special characters, like dot, underscore, or dash.
 
 Fortunately, PCRE provides us with a convenient way to say "alpha-numeric 
 characters,", using a named character class. There are quite a number of these, such as 
-`[:alpha:]` to match letters, `[:digit:]` to match numbers 0 through 9, and `[:alnum:]` to match 
+``[:alpha:]`` to match letters, ``[:digit:]`` to match numbers 0 through 9, and ``[:alnum:]`` to match 
 alpha-numeric characters.
 
 Next, we want to ensure that the domain name part of the pattern is alphanumeric too, 
@@ -568,28 +568,28 @@ unexpected format.
 
 Let's go though the rule one piece at a time:
 
-`\(?` - This sub-pattern represents an optional opening parenthesis. The backslash is 
+``\(?`` - This sub-pattern represents an optional opening parenthesis. The backslash is 
 necessary because parentheses already have special meaning in regular
 expressions. We want to remove 
 that special meaning, and have a literal opening parenthesis. The question mark makes this 
 character optional. That is, the person entering the data may or may not enclose the first three 
 numbers with parenthesis, and we want to ensure that either one is acceptable.
 
-`\d{3}` - `\d` means a digit. (Remember: d for digit.) This can also be written as `[:digit:]`, but the `\d` notation tends to be more 
-common, for the simple reason that it's less to type. The `{3}` following the `\d` indicates that 
+``\d{3}`` - ``\d`` means a digit. (Remember: d for digit.) This can also be written as ``[:digit:]``, but the ``\d`` notation tends to be more 
+common, for the simple reason that it's less to type. The ``{3}`` following the ``\d`` indicates that 
 we want to match the character exactly three times. That is, we require three digits in this 
 portion of the match, or it will return failure.
 
 See the section `Repetition quantifiers`_ for the various syntaxes you
 can use to indicate the number of repetitions you want.
 
-`\)?` - Like the opening parenthesis we started with, this is an optional closing parenthesis.
+``\)?`` - Like the opening parenthesis we started with, this is an optional closing parenthesis.
 
-`[-. ]?` - Another optional character, this allows, but does not require, a dash, a dot, or a 
+``[-. ]?`` - Another optional character, this allows, but does not require, a dash, a dot, or a 
 space, to appear between the first three numbers and the next three numbers.
 
 If you discover that your users are separating blocks with, say, an
-underscore, you could modify this part of the pattern to be `[-._ ]`
+underscore, you could modify this part of the pattern to be ``[-._ ]``
 instead, to include this new character.
 
 The rest of the expression is exactly the same as what we have already done, except that the last block of numbers contains 4 numbers, rather than three.
@@ -632,8 +632,8 @@ First, I'll consider the case where they request either http://www.example.com o
 http://www.example.com/ (ie, with or without the trailing slash, but with no file requested). In 
 other words, we want to match an optional slash. 
 
-As you probably remember from earlier, you use the `?` character to make a match 
-optional. Thus, we have: `^/?$`
+As you probably remember from earlier, you use the ``?`` character to make a match 
+optional. Thus, we have: ``^/?$``
 
 This matches a string that starts with, and ends with, an optional slash. Or, stated 
 differently, it matches either something that starts ends with a slash, or something that starts 
@@ -653,11 +653,11 @@ We'll build on the regex that we had last time, adding these additional requirem
 
     ^/?(index\.(html|php))?$
 
-This isn't quite right, as you'll see in a moment, but it's mostly right. It does, however, introduce a new syntax that hasn't been mentioned heretofore. That is the `|` syntax, which has 
+This isn't quite right, as you'll see in a moment, but it's mostly right. It does, however, introduce a new syntax that hasn't been mentioned heretofore. That is the ``|`` syntax, which has 
 the fancy name of "alternation" and means "one or the other." So (html|php) means "either 'html' or 'php'."
 
 So, we've got a regex that means a string that starts with a slash (optional) followed by 
-index., followed by either `html` or `php`, and that entire string (starting with the index) is also 
+index., followed by either ``html`` or ``php``, and that entire string (starting with the index) is also 
 optional, and then the string ends.
 
 The one problem with this regex is that it also matches the strings 'index.php' and 
@@ -681,10 +681,10 @@ look something like the following:
     ^/([^/]+)
 
 
-This regex has a number of components. First, there's the standard `^/` which we'll see a 
-lot, meaning "starts with a slash." Following that, we have the character class `[^/]`, which will 
+This regex has a number of components. First, there's the standard ``^/`` which we'll see a 
+lot, meaning "starts with a slash." Following that, we have the character class ``[^/]``, which will 
 match any "not slash" character. This is followed by a + indicating that we want one or more 
-of them, and enclosed in parentheses so that we can have the value for later observation, in `$1`.
+of them, and enclosed in parentheses so that we can have the value for later observation, in ``$1``.
 
 Matching a filetype
 '''''''''''''''''''
@@ -737,7 +737,7 @@ Reggy is a Mac OS X application that provides a simple interface for
 crafting and testing regular expressions. It will identify what parts of
 a string are matched by your regular expression.
 
-Reggy is available at \verb=http://code.google.com/p/reggy/= and is
+Reggy is available at <http://code.google.com/p/reggy/> and is
 licensed under the GPL.
 
 TODO SCREENSHOT
@@ -765,7 +765,7 @@ Visual Regexp
 \index{Visual Regexp}
 \label{visualregexp}
 
-Visual Regexp, available at \verb=http://laurent.riesterer.free.fr/regexp/=, has more features
+Visual Regexp, available at <http://laurent.riesterer.free.fr/regexp/>, has more features
 than the options listed above, and might be a good option once you have
 mastered the basics of regular expressions and are ready to move onto
 something a little more sophisticated. It shows backreferences, and
@@ -781,7 +781,7 @@ Regular Expression Tester
 
 Rather than being a stand-alone application like the others listed
 above, this is a Firefox plugin. It's available at
-\verb#https://addons.mozilla.org/en-US/firefox/addon/2077#, and, of
+<https://addons.mozilla.org/en-US/firefox/addon/2077>, and, of
 course, requires Firefox to work.
 
 Online tools
@@ -802,7 +802,7 @@ RegExr
 
 \index{RegExr}
 
-\verb#http://gskinner.com/RegExr/# - Includes a variety of pre-defined
+<http://gskinner.com/RegExr/> - Includes a variety of pre-defined
 character classes, and the ability to save your regular expressions for
 later reference. Requires Javascript to use.
 
@@ -813,7 +813,7 @@ Regex Pal
 
 
 
-\verb#http://regexpal.com/# - Less full-featured than RegExr, but
+<http://regexpal.com/> - Less full-featured than RegExr, but
 sufficient for the purpose of crafting and testing regular expressions
 for the purpose of mod_rewrite, which doesn't require replace
 functionality or multi-line matches.

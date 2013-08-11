@@ -93,51 +93,51 @@ The positive side of this is that you can modify the contents of a .htaccess fil
 
 The negative is that the .htaccess file needs to be loaded from the filesystem on every request, resulting in an incremental slowdown for every request. Additionally, because httpd doesn't know ahead of time what directories contain .htaccess files, it has to look in each directory for them, all along the path to the requested resource, which results in a slowdown that grows with the depth of the directory tree.
 
-In Apache httpd 2.2 and earlier, .htaccess files are enabled by default - that is the configuration directive that enables them, \verb~AllowOverride~, has a default value of \verb~All~. In 2.4 and later, it has a default value of \verb~None~, so .htaccess files are disabled by default.
+In Apache httpd 2.2 and earlier, .htaccess files are enabled by default - that is the configuration directive that enables them, ``AllowOverride``, has a default value of ``All``. In 2.4 and later, it has a default value of ``None``, so .htaccess files are disabled by default.
 
 A typical configuration to permit the use of .htaccess files looks like:
 
-\begin{verbatim}
-<Directory />
-	AllowOverride None
-</Directory>
+::
 
-DocumentRoot /var/www/html
-<Directory /var/www/html>
-	AllowOverride All
-</Directory /var/www/html>
-\end{verbatim}
+    <Directory />
+        AllowOverride None
+    </Directory>
+
+    DocumentRoot /var/www/html
+    <Directory /var/www/html>
+        AllowOverride All
+    </Directory /var/www/html>
 
 That is to say, .htaccess files are disallowed for the entire filesystem, 
 starting at the root, but then are permitted in the document directories.
-This prevents httpd from looking for .htaccess files in \verb~/~, \verb~/var~, 
-and \verb~/var/www~ on the way to looking in \verb~/var/www/html~.
+This prevents httpd [#]_ from looking for .htaccess files in ``/``, ``/var``, 
+and ``/var/www`` on the way to looking in ``/var/www/html``.
 
 Ok, so, what's the deal with mod_rewrite in .htaccess files?
 `````````````````````````````````````````````````````````````
 
 There are two major differences that you must be aware of before we proceed any further. The exact implications of these differences will become more apparent as we go, but I wouldn't want them to surprise you.
 
-First, there are two directives that you cannot use in .htaccess files. These directives are \verb~RewriteMap~ and \verb~RewriteLog~. These must be defined in the main server configuration. The reasons for this will be discussed in greater length when we get to the sections about those directives (\ref{rewritemap} and \ref{rewritelogging}, respectively.).
+First, there are two directives that you cannot use in .htaccess files. These directives are ``RewriteMap`` and (prior to httpd 2.4) ``RewriteLog``. These must be defined in the main server configuration. The reasons for this will be discussed in greater length when we get to the sections about those directives (\ref{rewritemap} and \ref{rewritelogging}, respectively.).
 
-Second, and more importantly, the syntax of \verb~RewriteRule~ directives changes in .htaccess context in a way that you'll need to be aware of every time you write a \verb~RewriteRule~. Specifically, the directory path that you're in will be removed from the URL path before it is presented to the \verb~RewriteRule~.
+Second, and more importantly, the syntax of ``RewriteRule`` directives changes in .htaccess context in a way that you'll need to be aware of every time you write a ``RewriteRule``. Specifically, the directory path that you're in will be removed from the URL path before it is presented to the ``RewriteRule``.
 
 The exact implications of this will become clearer as we show you examples. And, indeed, every example in this book will be presented in a form for the main config, and a form for .htaccess files, whenever there is a difference between the two forms. But we'll start with a simple example to illustrate the idea.
 
 Some of this, you'll need to take on faith at the moment, since we've not yet introduced several of the concepts presented in this example, so please be patient for now.
 
-Consider a situation where you want to apply a rewrite to content in the \verb~/images/puppies/~ subdirectory of your website. You have four options: You can put the \verb~RewriteRule~ in the main server configuration file; You can place it in a .htacess file in the root of your website; You can place it in a .htaccess file in the \verb~images~ directory; Or you can place it in a .htaccess file in the \verb~images/puppies~ directory.
+Consider a situation where you want to apply a rewrite to content in the ``/images/puppies/`` subdirectory of your website. You have four options: You can put the ``RewriteRule`` in the main server configuration file; You can place it in a .htacess file in the root of your website; You can place it in a .htaccess file in the ``images`` directory; Or you can place it in a .htaccess file in the ``images/puppies`` directory.
 
 Here's what the rule might look like in those various scenarios:
 
-\begin{tabular}{|l|l|}
-\hline \bf{Location} & \bf{Rule} \\ 
-\hline Main config & \verb~RewriteRule ^/images/puppies/(.*).jpg /dogs/$1.gif~ \\
-\hline Root directory &  \verb~RewriteRule ^images/puppies/(.*).jpg /dogs/$1.gif~ \\ 
-\hline images directory &  \verb~RewriteRule ^puppies/(.*).jpg /dogs/$1.gif~ \\ 
-\hline images/puppies directory &  \verb~RewriteRule ^(.*).jpg /dogs/$1.gif~ \\  
-\hline 
-\end{tabular} 
+========================  ====
+Location                  Rule
+------------------------  ----
+Main config               ``RewriteRule ^/images/puppies/(.*).jpg /dogs/$1.gif``
+Root directory            ``RewriteRule ^images/puppies/(.*).jpg /dogs/$1.gif``
+images directory          ``RewriteRule ^puppies/(.*).jpg /dogs/$1.gif``
+images/puppies directory  ``RewriteRule ^(.*).jpg /dogs/$1.gif``
+========================  ====
 
 For the moment, don't worry too much about what the individual rules do.
 Look instead at the URL path that is being considered in each rule, and
@@ -311,10 +311,10 @@ Example
 
 Consider this example:
 
-\begin{verbatim}
-RewriteEngine On
-RewriteRule ^/index\.html - [CO=frontdoor:yes:.example.com:1440:/]
-\end{verbatim}
+::
+
+    RewriteEngine On
+    RewriteRule ^/index\.html - [CO=frontdoor:yes:.example.com:1440:/]
 
 In the example give, the rule doesn't rewrite the request. The '-' rewrite target tells mod_rewrite to pass the request through unchanged. Instead, it sets a cookie called 'frontdoor' to a value of 'yes'. The cookie is valid for any host in the .example.com domain. It will be set to expire in 1440 minutes (24 hours) and will be returned for all URIs (i.e., for the path '/').
 
@@ -325,34 +325,35 @@ DPI - discardpath
 .. index:: DPI flag
 .. index:: Flags! DPI
 
-The DPI flag causes the \verb~PATH_INFO~ portion of the rewritten URI to be discarded.
+The DPI flag causes the ``PATH_INFO`` portion of the rewritten URI to be discarded.
 
 This flag is available in version 2.2.12 and later.
 
-In per-directory context, the URI each \verb~RewriteRule~ compares against is the concatenation of the current values of the URI and \verb~PATH_INFO~.
+In per-directory context, the URI each ``RewriteRule`` compares against is the concatenation of the current values of the URI and ``PATH_INFO``.
 
 The current URI can be the initial URI as requested by the client, the result of a previous round of mod_rewrite processing, or the result of a prior rule in the current round of mod_rewrite processing.
 
-In contrast, the \verb~PATH_INFO~ that is appended to the URI before each rule reflects only the value of \verb~PATH_INFO~ before this round of mod_rewrite processing. As a consequence, if large portions of the URI are matched and copied into a substitution in multiple \verb~RewriteRule~ directives, without regard for which parts of the URI came from the current \verb~PATH_INFO~, the final URI may have multiple copies of \verb~PATH_INFO~ appended to it.
+In contrast, the ``PATH_INFO`` that is appended to the URI before each rule reflects only the value of ``PATH_INFO`` before this round of mod_rewrite processing. As a consequence, if large portions of the URI are matched and copied into a substitution in multiple ``RewriteRule`` directives, without regard for which parts of the URI came from the current ``PATH_INFO``, the final URI may have multiple copies of ``PATH_INFO`` appended to it.
 
-Use this flag on any substitution where the \verb~PATH_INFO~ that resulted from the previous mapping of this request to the filesystem is not of interest. This flag permanently forgets the \verb~PATH_INFO~ established before this round of mod_rewrite processing began. \verb~PATH_INFO~ will not be recalculated until the current round of mod_rewrite processing completes. Subsequent rules during this round of processing will see only the direct result of substitutions, without any \verb~PATH_INFO~ appended.
+Use this flag on any substitution where the ``PATH_INFO`` that resulted from the previous mapping of this request to the filesystem is not of interest. This flag permanently forgets the ``PATH_INFO`` established before this round of mod_rewrite processing began. ``PATH_INFO`` will not be recalculated until the current round of mod_rewrite processing completes. Subsequent rules during this round of processing will see only the direct result of substitutions, without any ``PATH_INFO`` appended.
 
 E - env
 '''''''
 
-\index{E flag}
-\index{Rewrite flags!E}
-\label{eflag}
+.. index:: Rewrite flags! E
+.. index:: E flag
+.. index:: Flags! E
 
-With the \verb~[E]~, or \verb~[env]~ flag, you can set the value of an environment variable. Note that some environment variables may be set after the rule is run, thus unsetting what you have set.
+With the ``[E]``, or ``[env]`` flag, you can set the value of an environment variable. Note that some environment variables may be set after the rule is run, thus unsetting what you have set.
 
 The full syntax for this flag is:
 
-\begin{verbatim}
-[E=VAR:VAL] [E=!VAR]
-\end{verbatim}
+::
 
-VAL may contain backreferences (See section \ref{backreferences}) (\verb~$N~ or \verb~%N~) which will be expanded.
+    [E=VAR:VAL] 
+    [E=!VAR]
+
+VAL may contain backreferences (See section `backreferences`_) (``$N`` or ``%N``) which will be expanded.
 
 Using the short form
 
@@ -381,27 +382,31 @@ CustomLog logs/access_log combined env=!image
 
 Note that this same effect can be obtained using SetEnvIf. This technique is offered as an example, not as a recommendation.
 
-The \verb~[E]~ flag may be repeated if you want to set more than one environment variable at the same time:
+The ``[E]`` flag may be repeated if you want to set more than one environment variable at the same time:
 
-\begin{verbatim}
-RewriteRule \.pdf$ [E=document:1,E=pdf:1,E=done]
-\end{verbatim}
+::
 
-\subsection{END}
-\label{endflag}
-\index{Rewrite flags!END}
-\index{END flag}
+    RewriteRule \.pdf$ [E=document:1,E=pdf:1,E=done]
+
+END
+'''
+
+.. index:: END flag
+.. index:: Rewrite flags! END
+.. index:: Flags! END
 
 Although the flags are presented here in alphabetical order, it makes more sense to go read the section about the L flag first (\ref{lflag}) and then come back here.
 
-Using the \verb~[END]~ flag terminates not only the current round of rewrite processing (like \verb~[L]~) but also prevents any subsequent rewrite processing from occurring in per-directory (htaccess) context.
+Using the ``[END]`` flag terminates not only the current round of rewrite processing (like ``[L]``) but also prevents any subsequent rewrite processing from occurring in per-directory (htaccess) context.
 
 This does not apply to new requests resulting from external redirects.
 
-\subsection{F - forbidden}
-\label{fflag}
-\index{Rewrte flags!F}
-\index{F flag}
+F - forbidden
+'''''''''''''
+
+.. index:: Rewrite flags!F
+.. index:: Flags!F
+.. index:: F flag
 
 Using the \verb~[F]~ flag causes the server to return a 403 Forbidden status code to the client. While the same behavior can be accomplished using the Deny directive, this allows more flexibility in assigning a Forbidden status.
 
@@ -843,4 +848,6 @@ Rewrite Examples
 This chapter presents a cookbook of common examples of how you'll use mod_rewrite in the real world. Each example is presented as a problem statement, a solution, and then a discussion of the solution and possible alternatives.
 
 This chapter is likely to evolve over time, and so you are encouraged to check back at \verb~http://rewrite.rcbowen.com/~ frequently for updates.
+
+.. [#] Or, more to the point, it prevents malicious end-users from finding ways to look there.
 

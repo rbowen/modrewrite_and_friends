@@ -57,7 +57,7 @@ followed by further explanations and examples for each of the items in the table
 $           An anchor which insists that the string ends with the specified pattern. X$ means that the string must end with X.
 \+          Match the previous thing one or more times. So a\+ means one or more a's.
 \*          Match the previous thing zero or more times. This is the same as +, except that it's also acceptable if the thing wasn't there at all.
-?           Match the previous thing zero or one times. In other words, it makes it optional. It also makes the * and + characters non-greedy. [1]_
+?           Match the previous thing zero or one times. In other words, it makes it optional. It also makes the * and + characters non-greedy. [#]_
 {n,m}       Indicates that the previous thing should match at least n, and not more than m times. For example, ``a{2,7}`` matches at least 2, and not more than 7, occurrences of the letter a
 ( )         Provides grouping and capturing functions. Grouping means treating more than one character as though they were a single unit. You can apply repetition characters to a group created in this way.
             Capturing means remembering the thing that matched, so that we can use it again later. This is called a 'backreference.'
@@ -65,8 +65,6 @@ $           An anchor which insists that the string ends with the specified patt
 ^           Negates a match within a character set. (Remember that outside of a character class, it means something else. See above.) Thus, ``[^abc]`` matches a single character which is neither a nor b nor c.
 !           Placed on the front of a regular expression, this means "NOT". That is, it negates the match, and so succeeds only if the string does not match the pattern.
 ==========  =======
-
-.. [1] See section on `Greedy matching`_ 
 
 That's not all there is to regular expressions, but it's a really good starting point. 
 Each regular expression presented in this book will have an explanation of what it's doing, 
@@ -100,10 +98,8 @@ between the a and the c. That is, the ``.`` by itself, matches a single characte
 To be a bit more pedantic, it's worth noting that in regular expressions
 in general, ``.`` matches a byte, rather than a character. However, in
 the context of ``mod_rewrite``, where we're matching URLs that don't
-usually contain double-byte characters [2]_, we'll stick with the convention
+usually contain double-byte characters [#]_, we'll stick with the convention
 of saying that ``.`` matches a single character.
-
-.. [2] "Double-byte characters" refers to character encodings where all characters are encoded in two bytes. See <http://en.wikipedia.org/wiki/DBCS> for further details.
 
 The ``.`` character is very frequently used in connection with
 ``*`` to mean "match everything". You'll see the ``(.*)``
@@ -300,6 +296,8 @@ slashes in a URL. I'll be applying the regular expression to the URI
 ``/one/two/three/``, and I'll try a greedy, and not-greedy, regular
 expression. The `table of greedy examples`_ shows the results of these
 patterns.
+
+|
 
 .. _table of greedy examples:
 .. index:: Examples - Greedy matching
@@ -843,4 +841,9 @@ Other recommended reference sources include the Perl regular expression document
 which you can find online at <http://www.perldoc.com/perl5.8.0/pod/perlre.html> or by typing 
 `perldoc perlre` at your command line, and the PCRE documentation, which you can find online at 
 <http://pcre.org/pcre.txt>. 
+
+.. [#] See section on `Greedy matching`_ 
+
+.. [#] "Double-byte characters" refers to character encodings where all characters are encoded in two bytes. See <http://en.wikipedia.org/wiki/DBCS> for further details.
+
 

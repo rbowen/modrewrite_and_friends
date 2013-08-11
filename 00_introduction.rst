@@ -83,3 +83,9 @@ first place.
 
 Thanks to ``fajita``, and the other regulars on #httpd (on the ``irc.freenode.net`` network). ``fajita`` is my research assistant, and knows more than everyone else on the channel put together. And the folks on #ahd who keep me sane. Or insane. Depending on how you measure. A warm hog to each of you.
 
+And of course, none of this would be possible without mod_rewrite
+itself, so a big thank you to Ralf Engelschall for creating it, and
+all the many people who have worked on the code and documentation since
+then.
+
+

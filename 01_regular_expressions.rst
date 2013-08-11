@@ -385,11 +385,11 @@ use it later on:
 
 In the event that this pattern matches, we will capture the matching value in a special 
 variable, ``$1``. (In some contexts, the variable may be called ``%1`` instead.) If you have more 
-than one set of parentheses, the second one will be captured to the variable \verb=$2=, the third to \verb=$3=, 
-and so on. Only values up through \verb=$9= are available, however.  The reason for this is that \verb=$10= 
-would be ambiguous. It might mean \verb=$1=, followed by a literal zero (0), or it might mean \verb=$10=.  
+than one set of parentheses, the second one will be captured to the variable `$2`, the third to `$3`, 
+and so on. Only values up through `$9` are available, however.  The reason for this is that `$10` 
+would be ambiguous. It might mean `$1`, followed by a literal zero (0), or it might mean `$10`.  
 Rather than providing additional syntax to disambiguate this term, the designer of 
-mod\_rewrite instead chose to only provide backreferences through \verb=$9=.
+mod\_rewrite instead chose to only provide backreferences through `$9`.
 
 The exact way in which you can exploit this feature will be more obvious later, once we 
 start looking at the RewriteRule directive in `Chapter three, RewriteRules`_
@@ -416,7 +416,7 @@ Character Classes
 .. index:: [ ]
 
 A character class allows you to define a set of characters, and match any one of them. There 
-are several built-in character classes, like the ``\s`` metacharacter that you saw above.  Using the \verb=[ ]= notation lets you define your own
+are several built-in character classes, like the ``\s`` metacharacter that you saw above.  Using the `[ ]` notation lets you define your own
 custom character classes. As a very simple example, consider the following:
 
 ::
@@ -437,8 +437,8 @@ directory path for that subset of users, and the username ends up in the ``$1`` 
 The character class syntax also allows you to specify a range of characters fairly easily. 
 For example, if you wanted to match a number between 1 and 5, you can use the character class ``[1-5]``.
 
-Within a character class, the \verb=^= character has special meaning, if it is the first character in 
-the class. The character class \verb=[^abc]= is the opposite of the character class \verb=[abc]=. That is, it 
+Within a character class, the `^` character has special meaning, if it is the first character in 
+the class. The character class `[^abc]` is the opposite of the character class `[abc]`. That is, it 
 matches any character which is not a, b, or c.
 
 Which brings us back to the example above, where we are attempting to match a 
@@ -446,12 +446,14 @@ username starting with a, b, or c. The problem with the example is that the * ch
 greedy, meaning that it attempts to match as much as it possibly can. If we want to force it to 
 stop matching when it reaches a slash, we need to match only "not slash" characters:
 
-\verb=/home/([abc][^/]+)=
+::
 
-I've replaced the \verb=.*= with \verb=[^/]+= which has the effect that, rather than matching any 
+    /home/([abc][^/]+)
+
+I've replaced the `.*` with `[^/]+` which has the effect that, rather than matching any 
 character, it matches only not-slash characters. In other words, it will only match up to a 
-slash, or the end of the string, whichever comes first. Also, I've used \verb=+= instead of \verb=*=, since 
-one-character usernames are typically not permitted. Now, \verb=$1= will contain the username, 
+slash, or the end of the string, whichever comes first. Also, I've used `+` instead of `*`, since 
+one-character usernames are typically not permitted. Now, `$1` will contain the username, 
 whereas, before, it could possibly have contained other directory path components after the 
 username.
 
@@ -691,7 +693,8 @@ For the third example, we'll try to match everything that has a particular file 
 This, too, is a very common need. For example, we want to match everything that is an image 
 file. The following regex will do that, for the most common image types:
 
-\verb#\.(jpg|gif|png)$#
+::
+    \.(jpg|gif|png)$
 
 Later on, you'll see how to make this case insensitive, so that files with upper-case file 
 extensions are also matched.
@@ -715,7 +718,7 @@ Regex Coach
 \label{regexcoach}
 
 Regex Coach is available for Windows and Linux, 
-and can be downloaded from \verb=http://www.weitz.de/regex-coach=. 
+and can be downloaded from <http://www.weitz.de/regex-coach>. 
 Regex Coach allows you to step through a regular expression and watch
 what it does and does not match. This can be extremely instructive in
 learning to write your own regular expressions.

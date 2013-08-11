@@ -154,23 +154,11 @@ The syntax of the `Redirect` directive is as follows:
 Location
 --------
 
-Reverse Proxying
-----------------
-
-Proxying is a big enough deal that it gets its own chapter, Chapter \ref{chapter_proxy}.
-
 Virtual Hosts
 -------------
 
-Virtual hosts are a big enough deal that they get their own chapter, Chapter \ref{chapter_vhosts}.
-
-File not found
---------------
-
-In the event that a requested resource is not available, after all of the above mentioned methods are attempted to find it ...
-
-Virtual Hosts
--------------
+Proxying
+--------
 
 mod_actions
 -----------
@@ -181,7 +169,9 @@ mod_imagemap
 mod_negotiation
 ---------------
 
-Proxying
---------
+File not found
+--------------
+
+In the event that a requested resource is not available, after all of the above mentioned methods are attempted to find it ...
 
 

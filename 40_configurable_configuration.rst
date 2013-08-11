@@ -11,21 +11,33 @@ In this part of the book, we discuss some of this functionality. Some of it is s
 Define and IfDefine
 -------------------
 
-\section{<If>, <Elsif>, and <Else>}
-\label{if}
-\index{<If>}
+.. index:: Define
+.. index:: IfDefine
 
-New in Apache httpd 2.4 is the ability to put \verb~<If>~ blocks in your configuration file to make it truly conditional. This provides a level of flexibility that was never before available.
+<If>, <Elsif>, and <Else>
+-------------------------
 
-In this section we'll show you how to use that feature, and give some examples of what you might do with it.
+.. index:: If
+.. index:: <If>
 
-\section{mod\_macro}
+New in Apache httpd 2.4 is the ability to put `<If>` blocks in your configuration file to make it truly conditional. This provides a level of flexibility that was never before available.
 
-\section{Conditional logging}
+In this chapter we'll show you how to use that feature, and give some examples of what you might do with it.
 
-\subsection{env=}
+mod_macro
+---------
 
-\subsection{Per-directory logging}
+.. index:: mod_macro
 
-\subsection{Piped logging}
+Conditional logging
+-------------------
+
+env=
+````
+
+Per-directory logging
+`````````````````````
+
+Piped logging
+`````````````
 

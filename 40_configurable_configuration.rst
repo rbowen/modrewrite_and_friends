@@ -1,12 +1,15 @@
-\part{Conditional Configuration}
+Conditional Configuration
+=========================
 
-\section{Introduction}
+Introduction
+------------
 
 While the Apache httpd configuration files have always had some ways to make things conditional, with the advent of version 2.4, there's an explosion in the ways that you can make your configuration file reactive and programmable. That is, you can make your configuration more responsive to the specifics of the request that it servicing.
 
 In this part of the book, we discuss some of this functionality. Some of it is specific to version 2.4 and later, while some of it has been available for years.
 
-\section{Define and IfDefine}
+Define and IfDefine
+-------------------
 
 \section{<If>, <Elsif>, and <Else>}
 \label{if}

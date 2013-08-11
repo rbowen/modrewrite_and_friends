@@ -1,4 +1,3 @@
-===========
 URL Mapping
 ===========
 
@@ -19,7 +18,8 @@ The exact order in which these steps are applied may vary from one
 configuration to another, so it is important to understand not only the
 steps, but the way in which you have configured your particular server.
 
-\section{mod\_rewrite}
+mod_rewrite
+-----------
 
 mod\_rewrite is perhaps the most powerful part of this process. That
 is, of course, why it features prominently in the name of this book.
@@ -35,7 +35,9 @@ the process.
 
 This, and much more, will be revealed in the coming chapters.
 
-\section{DocumentRoot}
+DocumentRoot
+------------
+
 \label{documentroot}
 \index{DocumentRoot}
 
@@ -90,7 +92,9 @@ For further discussion of the autoindex functionality, consult the \verb~mod_aut
 
 \textit{Future versions of this book will include more detailed information about directory listings.}
 
-\section{Alias}
+Alias
+-----
+
 \index{Alias}
 \label{alias}
 
@@ -123,7 +127,9 @@ There's a special form of the \verb~Alias~ directive - \verb~ScriptAlias~ - whic
 \index{CGI}
 CGI programming is outside of the scope of this book. You may read more about it at \verb~http://httpd.apache.org/docs/current/howto/cgi.html~
 
-\section{Redirect}
+Redirect
+--------
+
 \index{Redirect}
 \label{redirect}
 
@@ -150,28 +156,37 @@ The syntax of the \verb~Redirect~ directive is as follows:
 Redirect [status] RequestedURL TargetUrl
 \end{verbatim}
 
-\section{Location}
+Location
+--------
 
-\section{Reverse Proxying}
+Reverse Proxying
+----------------
 
 Proxying is a big enough deal that it gets its own chapter, Chapter \ref{chapter_proxy}.
 
-\section{Virtual Hosts}
+Virtual Hosts
+-------------
 
 Virtual hosts are a big enough deal that they get their own chapter, Chapter \ref{chapter_vhosts}.
 
-\section{File not found}
+File not found
+--------------
 
 In the event that a requested resource is not available, after all of the above mentioned methods are attempted to find it ...
 
-\chapter{Virtual Hosts}
-\label{chapter_vhosts}
+Virtual Hosts
+-------------
 
-\chapter{mod\_actions}
+mod_actions
+-----------
 
-\chapter{mod\_imagemap}
+mod_imagemap
+------------
 
-\chapter{mod\_negotiation}
+mod_negotiation
+---------------
 
-\chapter{Proxying}
-\label{chapter_proxy}
+Proxying
+--------
+
+

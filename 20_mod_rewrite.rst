@@ -58,7 +58,8 @@ If you see the \verb~Internal Server Error~ message, or that log file message, i
 
 However, this is fairly unlikely, since mod\_rewrite is a fairly standard part of any Apache http server's bag of tricks.
 
-\section{RewriteEngine}
+RewriteEngine
+-------------
 
 In the section above, we used the \verb~RewriteEngine~ directive without defining what it does.
 
@@ -68,7 +69,9 @@ The \verb~RewriteEngine~ directive enables or disables the runtime rewriting eng
 
 While we won't always include that in every example in this book, it should be assumed, from this point forward, that every use of mod\_rewrite occurs in a scope where \verb~RewriteEngine~ has been turned on.
 
-\section{mod\_rewrite in .htaccess files}
+mod_rewrite in .htaccess files
+-------------------------------
+
 \index{htaccess files}
 \index{mod\_rewrite in .htacess files}
 
@@ -769,4 +772,42 @@ A \verb~rnd~ map will randomly select one value from the specified text file.
 \subsection{dbd}
 \label{rewritemap_dbd}
 \index{RewriteMap!dbd}
+
+mod_rewrite logging and debugging
+---------------------------------
+
+.. _Logging:
+.. index:: Logging
+
+Logging
+```````
+
+Exactly how you turn on logging for mod\_rewrite will depend on what version of the Apache http server you are running. Logging got some updates in the 2.4 release of the server, and the rewrite log was one of the changes that happened at that time.
+
+If you're not sure what version you're running, you can get the ``httpd`` binary to tell you with the ``-v`` flag:
+
+::
+
+    httpd -v
+
+2.2 and earlier
+'''''''''''''''
+
+TODO: Discussion of why you can't use RewriteLog in .htaccess files
+
+2.4 and later
+'''''''''''''
+
+TODO: Discussion of why you can't use rewrite logging in .htaccess files.
+
+Debugging rewrite rules
+```````````````````````
+
+
+Rewrite Examples
+----------------
+
+This chapter presents a cookbook of common examples of how you'll use mod\_rewrite in the real world. Each example is presented as a problem statement, a solution, and then a discussion of the solution and possible alternatives.
+
+This chapter is likely to evolve over time, and so you are encouraged to check back at \verb~http://rewrite.rcbowen.com/~ frequently for updates.
 

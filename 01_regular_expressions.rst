@@ -302,59 +302,74 @@ expression. The `table of greedy examples`_ shows the results of these
 patterns.
 
 .. _table of greedy examples:
+.. index:: Examples - Greedy matching
+.. index:: Table - Greedy matching
 
 =======  =======
 Pattern  Matches
 -------  -------
-
 /(.*)/   one/two/three
 /(.*?)/  one
-
--------  -------
+=======  =======
 
 The first regex is greedy, and matches as much as it possibly can, going
 out to the last slash. The second is non-greedy, and so stops as early as it can, when it encounters the second slash.
 
-\subsection{Making a match optional}
-\index{Optional matching}
-\index{?}
+Making a match optional
+```````````````````````
 
-The ? character makes a single character match optional. This is extremely useful for 
+.. index:: Optional matching
+.. index:: ?
+
+The ``?`` character makes a single character match optional. This is extremely useful for 
 common misspellings, or elements that may, or may not, appear in a string. For example, you 
 might use it in a word when you're not sure whether it's supposed to be hyphenated:
 
-\verb=e-?mail=
+::
+
+    e-?mail
 
 The above pattern matches both "email" and "e-mail", so that either
 spelling will be accepted. Likewise, you could use:
 
-\verb=colou?r=
+::
+
+    colou?r
 
 to match the word color both as it is spelled in the USA, and the way
 that it is spelled in the rest of the world.
 
-Additionally, the \verb=?= character turns off the "greedy" nature of the \verb=+= 
-and \verb=*= characters. Thus, putting a \verb=?= after a \verb=+= or a 
-\verb=*= will make it match as little as it possibly can. See the earlier 
-comments about greedy matching - \ref{greedy}.
+Additionally, the ``?`` character turns off the "greedy" nature of the ``+`` 
+and ``*`` characters. Thus, putting a ``?`` after a ``+`` or a 
+``*`` will make it match as little as it possibly can. See the earlier 
+comments about `Greedy matching`_.
 
 Further examples of the greedy vs. non-greed behavior will follow once we have learned 
 about backreferences.
 
-\subsection{Grouping and capturing}
-\index{( )}
+
+Grouping and capturing
+``````````````````````
+
+.. index:: Capturing
+.. index:: Grouping
+.. index:: ( )
 
 Parentheses allow you to group several characters as a unit, and also to capture the results of 
 a match for later use. The ability to treat several characters as a unit is extremely useful in 
-pattern matching. The following example is functional, but not very useful:
+pattern matching. Think of it as combining several atoms into a single molecule. For example, consider this example:
 
-\verb=(abc)+=
+::
 
-This will look for the sequence "abc" appearing one or more times, and so would match 
-the string "abc" and the string "abcabc".
+    (abc)+
 
-\label{backreferences}
-\index{backreferences}
+This will look for the sequence "abc" appearing one or more times, and so would match the string "abc" and the string "abcabc".
+
+Backreferences
+``````````````
+
+.. index:: Backreferences
+
 Even more useful is the "capturing" functionality of the parentheses. Once a pattern has 
 matched, you often want to know what matched, so that you can use it later. This is usually 
 referred to as "backreferences."
@@ -363,10 +378,12 @@ For example, you may be looking for a .gif file, as in the example above, and yo
 want to know what .gif file you matched. By capturing the filename with parentheses, you can 
 use it later on:
 
-\verb=(.*\.gif)$=
+::
+
+    (.*\.gif)$
 
 In the event that this pattern matches, we will capture the matching value in a special 
-variable, \verb=$1=. (In some contexts, the variable may be called \verb=%1= instead.) If you have more 
+variable, ``$1``. (In some contexts, the variable may be called ``%1`` instead.) If you have more 
 than one set of parentheses, the second one will be captured to the variable \verb=$2=, the third to \verb=$3=, 
 and so on. Only values up through \verb=$9= are available, however.  The reason for this is that \verb=$10= 
 would be ambiguous. It might mean \verb=$1=, followed by a literal zero (0), or it might mean \verb=$10=.  
@@ -374,48 +391,50 @@ Rather than providing additional syntax to disambiguate this term, the designer 
 mod\_rewrite instead chose to only provide backreferences through \verb=$9=.
 
 The exact way in which you can exploit this feature will be more obvious later, once we 
-start looking at the RewriteRule directive in Chapter \ref{chapter_rewriterule}.
+start looking at the RewriteRule directive in `Chapter three, RewriteRules`_
 
-Consider these two patterns, applied to the string ``canadian''.
+Consider these two patterns, applied to the string "canadian".
 
-\begin{verbatim}
-c(.*)n
-c(.*?)n
-\end{verbatim}
+::
 
-The first pattern will return with a value of "anadia" in \verb=$1=, while the second will return 
-with \verb=$1= set to "a". When it is in greedy mode, the \verb=.*= will gobble up as much as it can, only 
-stopping when it reaches the last n, but when in non-greedy mode, it will be satisfied with as 
-little as possible, stopping with the first n it encounters.
+    c(.*)n
+    c(.*?)n
+
+The first pattern will return with a value of "anadia" in ``$1``, since it will match as much as it possibly can between the first c and the last n it sees. The second, on the other hand, will return 
+with ``$1`` set to "a", since it is non-greedy, and so stops at the first n it sees. 
+
 It is instructive to acquire a tool such as Regex Coach, or Rebug, mentioned at the end of 
 the chapter, and feed them these patterns and strings, to watch them match the different parts 
-of the string. \underline{Mastering Regular Expressions} also has a very complete treatment of 
+of the string. **Mastering Regular Expressions** also has a very complete treatment of 
 backreferences, greedy matching, and what actually happens during the matching phase.
 
-\subsection{Character Classes}
-\index{Character classes}
-\index{[ ]}
+Character Classes
+`````````````````
+
+.. index:: Character classes
+.. index:: [ ]
 
 A character class allows you to define a set of characters, and match any one of them. There 
-are several built-in character classes, like the \verb=\s= metacharacter that you saw above. 
-But using the \verb=[ ]= notation lets you define your own
+are several built-in character classes, like the ``\s`` metacharacter that you saw above.  Using the \verb=[ ]= notation lets you define your own
 custom character classes. As a very simple example, consider the following:
 
-\verb=[abc]=
+::
+
+    [abc]
 
 This character class matches the letter a, or the letter b, or the letter c. For example, if 
 we wanted to match the subset of users whose usernames started with one of those letters, we 
 might look for the pattern:
 
-\verb=/home/([abc].*)=
+::
+
+    /home/([abc].*)
 
 This combines several of the characters that we've worked with. It ends up matching a 
-directory path for that subset of users, and the username ends up in the \verb=$1= variable. Well, 
-actually, not quite, as we'll see in a minute, but almost.
+directory path for that subset of users, and the username ends up in the ``$1`` variable. Well, actually, not quite, as we'll see in a minute, but almost.
 
 The character class syntax also allows you to specify a range of characters fairly easily. 
-For example, if you wanted to match a number between 1 and 5, you can use the character 
-class \verb=[1-5]=.
+For example, if you wanted to match a number between 1 and 5, you can use the character class ``[1-5]``.
 
 Within a character class, the \verb=^= character has special meaning, if it is the first character in 
 the class. The character class \verb=[^abc]= is the opposite of the character class \verb=[abc]=. That is, it 
@@ -435,45 +454,56 @@ one-character usernames are typically not permitted. Now, \verb=$1= will contain
 whereas, before, it could possibly have contained other directory path components after the 
 username.
 
-\subsection{Negation}
-\index{!}
+Negation
+````````
+
+.. index:: Negation
+.. index:: !
 
 Finally, if you wish to negate an entire regular expression match, prefix it with !. This is not 
-going to be consistent across all regular expression implementations, but can be used in a 
+consistent across all regular expression implementations, but can be used in a 
 number of them. A very common use of this in the context of rewrite rules will be to indicate 
 that you want a pattern to apply to all directories except for one. So, for example, if we 
 wanted to exclude the /images directory from consideration, we would match the /images 
 directory, but then negate the match, thus:
 
-\verb=!^/images=
+::
 
-This matches any path not starting with /images. We'll see more of this kind of pattern 
-match especially in Chapter \ref{chapter_proxy} on Proxying.
+    !^/images
 
-\section{Regex examples}
+This matches any path not starting with ``/images``. We'll see more of this kind of pattern match especially in Chapter `Proxying`_.
+
+Regex examples
+--------------
+
+.. index:: Examples
+.. index:: Regex examples
 
 A few examples may be instructive in your understanding of how regular expressions 
 work. We'll start with a few of the cases that you may frequently encounter, and suggest a 
 few alternate solutions to each.
 
-\subsection{Email address}
-\index{Email address}
+Email address
+`````````````
+
+.. index:: Email address
 
 We'll start with a common favorite. You want to craft a regular expression that matches 
-an email address. The general format of an email address is "something @ something . 
-something". When you are crafting a regular expression from scratch, it's good to express the 
+an email address. The general format of an email address is "something @ something dot something". When you are crafting a regular expression from scratch, it's good to express the 
 pattern to yourself in terms like this, because it's a good start towards writing the expression 
 itself.
 
 To express this as a regular expression, let's take the component parts. The catch all 
-"something" part can likely be expressed as .*. The . and @ parts are literal characters.
-So, this gives us something like:
+"something" part can likely be expressed as `.*` and the `.` and `@` parts are literal characters.
+So, this gives us a starting point of:
 
-\verb=.*@.*\..*=
+::
+
+    .*@.*\..*
 
 This is a good start, and matches most email addresses. It will probably match all email 
 addresses. However, it will also match a lot of stuff that isn't email addresses, like 
-"@@@.@" and "@.com". So we have to try something a little more specific.
+"@@@.@", "@.com", and "This isn't an em@il address." So we have to try something a little more specific.
 
 We want to require that the "something" before the @ sign is not zero length, and 
 contains certain types of characters. For example, it should be alpha-numeric, but may also 
@@ -481,47 +511,50 @@ contain certain other special characters, like dot, underscore, or dash.
 
 Fortunately, PCRE provides us with a convenient way to say "alpha-numeric 
 characters,", using a named character class. There are quite a number of these, such as 
-\verb=[:alpha:]= to match letters, \verb=[:digit:]= to match numbers 0 through 9, and \verb=[:alnum:]= to match 
+`[:alpha:]` to match letters, `[:digit:]` to match numbers 0 through 9, and `[:alnum:]` to match 
 alpha-numeric characters.
 
 Next, we want to ensure that the domain name part of the pattern is alphanumeric too, 
-except that the top level domain (tld), i.e., the last part of the domain name, must be letters. In 
-the old days, we could have said it had to be three letters, but now there are a large number of 
-perfectly valid domain names that don't match that requirement.
+except that the top level domain (tld), i.e., the last part of the domain name, must be letters.
 
 And we want to allow an arbitrary number of dots in the hostname, so that "a.com" and 
 "mail.s.ms.uky.edu" are both valid hostname portions of an email address.
 So we can say the above description as:
 
-\begin{verbatim}
-^[:alnum:]._-]@([:alnum:]+\.)+[:alpha:]+$
-\end{verbatim}
+::
 
-This is far more specific, and will probably ensure a valid email address. There are still 
-probably ways for it to match something that is not an email address, but it is unlikely.
+    ^[:alnum:]._-]@([:alnum:]+\.)+[:alpha:]+$
 
-However, you should note that there does not exist a regular expression
+This is far more specific, and will match most valid email addresses.
+However, it will also exclude a few edge-cases, as well as allowing some
+things that are not valid addresses, such as invalid domain names.
+
+You should note that this was something of a fool's errand -  there does not exist a regular expression
 that matches all possible email addresses. Indeed, I started with
 this example to give you a flavor for just how complicated it can be to
 craft a pattern for something that is not well defined.
 
 For more discussion of writing regular expressions to match email
-addresses, simply search for ``email regex'' in your favorite search
+addresses, simply search for `email regex` in your favorite search
 engine, and you'll find many, many articles about how and why it is
 impossible. 
 
-\subsection{Phone number}
-\index{Phone number}
+Phone number
+````````````
+
+.. index:: Phone number
 
 Next we'll consider the problem of matching a phone number. This is much harder than it 
 would at first appear. We'll assume, for the sake of simplicity, that we're just trying to match 
 US phone numbers, which are 10 numbers.
 
 The number consists of three numbers, then three more, then four more. These numbers 
-may or may not be separated by a variety of things. The first three may or may not be 
+may, or may not, be separated by a variety of things. The first three may or may not be 
 enclosed in parentheses. So we'll try something like this:
 
-\verb=\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}=
+::
+
+    \(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}
 
 This pattern matches most US phone numbers, in most of the ordinary formats. The 
 first three numbers may or may not be in parentheses, and the blocks of numbers may or may 
@@ -530,44 +563,33 @@ not be separated by dashes (-), dots (.) or spaces.
 It is still far from foolproof, because users will come up with ways to submit data in 
 unexpected format.
 
-Let's go though the rule one metacharacter at a time:
+Let's go though the rule one piece at a time:
 
-\verb=\(?= - This metacharacter represents an optional opening parenthesis. The backslash is 
-necessary because parentheses have special meaning, as discussed above. We want to remove 
+`\(?` - This sub-pattern represents an optional opening parenthesis. The backslash is 
+necessary because parentheses already have special meaning in regular
+expressions. We want to remove 
 that special meaning, and have a literal opening parenthesis. The question mark makes this 
-character options. That is, the person entering the data may or may not enclose the first three 
+character optional. That is, the person entering the data may or may not enclose the first three 
 numbers with parenthesis, and we want to ensure that either one is acceptable.
 
-\verb=\d{3}= - This metacharacter introduces two objects that have not been seen so far. \d means 
-a digit. d for digit. This can also be written as \verb=[:digit:]=, but the \verb=\d= notation tends to be more 
-common, for the simple reason that it's less to type. The \verb={3}= following the \verb=\d= indicates that 
-we want to math the character exactly three times. That is, we require three digits in this 
+`\d{3}` - `\d` means a digit. (Remember: d for digit.) This can also be written as `[:digit:]`, but the `\d` notation tends to be more 
+common, for the simple reason that it's less to type. The `{3}` following the `\d` indicates that 
+we want to match the character exactly three times. That is, we require three digits in this 
 portion of the match, or it will return failure.
 
-The \verb={n}= notation has two other possible syntaxes, if the number of characters is not 
-known for certain ahead of time. These syntaxes are shown in the table below:
+See the section `Repetition quantifiers`_ for the various syntaxes you
+can use to indicate the number of repetitions you want.
 
-\begin{table}[ht]
-\caption{Repetition syntax}
-\begin{tabular}{l | p{12cm}}
-Syntax &
-Meaning\\ \hline \hline
-\verb={n}= &
-Requires that the character appear exactly n times \\ \hline
-\verb={n,}= &
-Requires that the character appear at least n times, but more are permitted. \\ \hline
-\verb={n,m}= &
-The character must appear at least n times, but not more than m times\\
-\hline
-\end{tabular}
-\end{table}
+`\)?` - Like the opening parenthesis we started with, this is an optional closing parenthesis.
 
-\verb=\)?= - Like the opening parenthesis we started with, this is an optional closing parenthesis.
-
-\verb=[-. ]?= - Another optional character, this allows, but does not require, a dash, a dot, or a 
+`[-. ]?` - Another optional character, this allows, but does not require, a dash, a dot, or a 
 space, to appear between the first three numbers and the next three numbers.
-The rest of the expression is exactly the same as what we have already done, except that 
-the last block of numbers contains 4 numbers, rather than three.
+
+If you discover that your users are separating blocks with, say, an
+underscore, you could modify this part of the pattern to be `[-._ ]`
+instead, to include this new character.
+
+The rest of the expression is exactly the same as what we have already done, except that the last block of numbers contains 4 numbers, rather than three.
 
 The next step in crafting a regular expression is to think of the ways in which your 
 pattern will break, and whether it is worth the additional work to catch these edge cases. For 
@@ -580,7 +602,8 @@ and that's at least some indication of how much time it would take you to deciph
 when you come back to it in a few months and have forgotten what it is supposed to be 
 doing.
 
-\subsection{Matching URIs}
+Matching URIs
+`````````````
 
 Finally, since this is, after all, a book about mod\_rewrite, it seems reasonable to give 
 some examples of matching URIs, as that is what you will primarily be doing for the rest of 
@@ -594,7 +617,8 @@ web address.
 
 I'll give several common examples of things that you might want to match.
 
-\subsubsection{Matching the homepage}
+Matching the homepage
+'''''''''''''''''''''
 
 Very frequently, people will want to match the home page of the website. Typically, that 
 means that the requested URI is either nothing at all, or is /, or is some index page such as 
@@ -605,8 +629,8 @@ First, I'll consider the case where they request either http://www.example.com o
 http://www.example.com/ (ie, with or without the trailing slash, but with no file requested). In 
 other words, we want to match an optional slash. 
 
-As you probably remember from above, you use the ? character to make a match 
-optional. Thus, we have: \verb=^/?$ =
+As you probably remember from earlier, you use the `?` character to make a match 
+optional. Thus, we have: `^/?$`
 
 This matches a string that starts with, and ends with, an optional slash. Or, stated 
 differently, it matches either something that starts ends with a slash, or something that starts 
@@ -615,47 +639,52 @@ and ends with nothing.
 Next, we introduce the additional complexity of the file name. That is, we want to match 
 any of the following four strings:
 
-\begin{itemize}
-\item The empty string - that is, they requested http://www.example.com with no trailing slash.
-\item / - they requested http://www.example.com/ with a trailing slash.
-\item /index.html
-\item /index.php
-\end{itemize}
+* The empty string - that is, they requested http://www.example.com with no trailing slash.
+* / - they requested http://www.example.com/ with a trailing slash.
+* /index.html
+* /index.php
 
-We'll build on the regex that we had last time, and get \verb=^/?(index.(html|php))?$=
-This isn't quite right, as you'll see in a moment, but it's mostly right. It does, however, 
-introduce a new syntax that hasn't been mentioned heretofore. That is the | syntax, which has 
-the fancy name of "alternation" and means "one or the other." So (html|php) means "either 
-'html' or 'php'."
+We'll build on the regex that we had last time, adding these additional requirements:
+
+::
+
+    ^/?(index\.(html|php))?$
+
+This isn't quite right, as you'll see in a moment, but it's mostly right. It does, however, introduce a new syntax that hasn't been mentioned heretofore. That is the `|` syntax, which has 
+the fancy name of "alternation" and means "one or the other." So (html|php) means "either 'html' or 'php'."
 
 So, we've got a regex that means a string that starts with a slash (optional) followed by 
-index., followed by either html or php, and that entire string (starting with the index) is also 
+index., followed by either `html` or `php`, and that entire string (starting with the index) is also 
 optional, and then the string ends.
 
 The one problem with this regex is that it also matches the strings 'index.php' and 
 'index.html', without a leading slash. While, strictly speaking, this is incorrect, in the actual 
-context of matching a URI, it is probably not of any great concern. Although a client could in 
-fact request one of these two values, for one thing, they are rather unlikely to do so, but, for 
-another, even if they do, it's probably ok to treat them as though they had requested a valid 
-URI.
+context of matching a URI, it is probably fine, in most scenarios, to
+ignore that particular technicality. Note, however, that there are lots
+of people who spend a lot of time trying to figure out how to exploit
+technicalities like this, so be careful.
 
-\subsubsection{Matching a directory}
-\index{Directory}
+Matching a directory
+''''''''''''''''''''
+
+.. index:: Directory
 
 If you wanted to find out what directory a particular requested URI was in, or, perhaps, 
 what keyword it started with, you need to match everything up to the first slash. This will 
 look something like the following: 
 
-\verb=^/([^/]+)=
+::
 
-This regex has a number of components. First, there's the standard \verb=^/= which we'll see a 
-lot, meaning "starts with a slash." Following that, we have the character class \verb=[^/]=, which will 
+    ^/([^/]+)
+
+
+This regex has a number of components. First, there's the standard `^/` which we'll see a 
+lot, meaning "starts with a slash." Following that, we have the character class `[^/]`, which will 
 match any "not slash" character. This is followed by a + indicating that we want one or more 
-of them, and enclosed in parentheses so that we can have the value for later observation, in 
-\$1.
+of them, and enclosed in parentheses so that we can have the value for later observation, in `$1`.
 
-\subsubsection{Matching a filetype}
-\index{File type}
+Matching a filetype
+'''''''''''''''''''
 
 For the third example, we'll try to match everything that has a particular file extension. 
 This, too, is a very common need. For example, we want to match everything that is an image 
@@ -666,8 +695,10 @@ file. The following regex will do that, for the most common image types:
 Later on, you'll see how to make this case insensitive, so that files with upper-case file 
 extensions are also matched.
 
-\chapter{Regex tools}
-\index{Regex testers}
+Regex tools
+-----------
+
+.. index:: Regex testers
 
 If you're going to spend more than just a little time messing with regexes, you're 
 eventually going to want a tool that helps you visualize what's going on. There are a number 
@@ -676,7 +707,9 @@ most of the really good tools for regular expression development come out of the
 community, where regular expressions are particularly popular, and tend to get used in 
 almost every program.
 
-\section{Regex Coach}
+Regex Coach
+```````````
+
 \index{Regex Coach}
 \label{regexcoach}
 
@@ -690,7 +723,9 @@ TODO SCREENSHOT
 
 Regex Coach is free, but it is not Open Source.
 
-\section{Reggy}
+Reggy
+`````
+
 \index{Reggy}
 \label{reggy}
 
@@ -703,7 +738,9 @@ licensed under the GPL.
 
 TODO SCREENSHOT
 
-\section{pcretest}
+pcretest
+````````
+
 \index{pcretest}
 \label{pcretest}
 
@@ -718,7 +755,9 @@ be set to.
 In TODO SCREENSHOT you can see what each of the various backreferences
 will be set to once the regular expression has been evaluated.
 
-\section{Visual Regexp}
+Visual Regexp
+`````````````
+
 \index{Visual Regexp}
 \label{visualregexp}
 
@@ -731,7 +770,9 @@ offers a wide variety of suggestions to help build a regex.
 Visual Regexp is available as a Windows executable or as a Tcl/Tk
 script. TODO SCREENSHOT
 
-\section{Regular Expression Tester}
+Regular Expression Tester
+`````````````````````````
+
 \index{Regular Expression Tester}
 
 Rather than being a stand-alone application like the others listed
@@ -739,7 +780,9 @@ above, this is a Firefox plugin. It's available at
 \verb#https://addons.mozilla.org/en-US/firefox/addon/2077#, and, of
 course, requires Firefox to work.
 
-\subsection{Online tools}
+Online tools
+````````````
+
 \index{Online regex testers}
 
 In addition to these tools, there are many online tools, which you can
@@ -750,24 +793,30 @@ on a weekly basis, and so I can't promise that these sites will still
 be available at the time that you read this, but here are some that are
 worth mentioning at the time of writing:
 
-\subsubsection{RegExr}
+RegExr
+``````
+
 \index{RegExr}
 
 \verb#http://gskinner.com/RegExr/# - Includes a variety of pre-defined
 character classes, and the ability to save your regular expressions for
 later reference. Requires Javascript to use.
 
-\subsubsection{Regex Pal}
+Regex Pal
+`````````
+
 \index{Regex Pal}
 
 
 
 \verb#http://regexpal.com/# - Less full-featured than RegExr, but
 sufficient for the purpose of crafting and testing regular expressions
-for the purpose of mod\_rewrite, which doesn't require replace
+for the purpose of mod_rewrite, which doesn't require replace
 functionality or multi-line matches.
 
-\section{RewriteRule generators}
+RewriteRule generators
+----------------------
+
 
 You may find various websites that purport to be RewriteRule generators.
 I strongly encourage you to avoid these, and instead to learn how to
@@ -775,7 +824,8 @@ craft your own rules. I've evaluated several of these sites, and every
 one has resulted in RewriteRule directives that were either enormously
 inefficient, or completely wrong.
 
-\section{Summary}
+Summary
+-------
 
 Having a good grasp of Regular Expressions is a necessary prerequisite to working with 
 mod\_rewrite. All too often, people try to build regular expressions by the brute-force method, 
@@ -783,11 +833,10 @@ trying various different combinations at random until something seems to mostly 
 results in expressions that are inefficient and fragile, as well as a great waste of time, and 
 much frustration.
 
-Keep a bookmark in this chapter, and refer back to it when you're trying to figure out 
-what a particular regex is doing.
+Keep a bookmark in this chapter, and refer back to it when you're trying to figure out what a particular regex is doing.
 
 Other recommended reference sources include the Perl regular expression documentation, 
-which you can find online at \verb=http://www.perldoc.com/perl5.8.0/pod/perlre.html= or by typing 
-\verb=perldoc perlre= at your command line, and the PCRE documentation, which you can find online at 
-\verb=http://pcre.org/pcre.txt=. 
+which you can find online at <http://www.perldoc.com/perl5.8.0/pod/perlre.html> or by typing 
+`perldoc perlre` at your command line, and the PCRE documentation, which you can find online at 
+<http://pcre.org/pcre.txt>. 
 

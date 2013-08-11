@@ -8,7 +8,8 @@ I started writing this in LaTeX, but those .tex files will go away soon, as I co
 'make latexpdf' to build PDF version. Various other make targets build
 other formats. You'll need to have various TeX things installed, like
 texlive, texlive-collection-extras, texlive-chextras, texlive-bold-extra
-and texlive-collection-latexextra.
+and texlive-collection-latexextra. And you'll need to install Sphinx -
+http://sphinx-doc.org/
 
 I'll document all the dependencies as soon as I figure them out. Let me
 know if stuff doesn't build.

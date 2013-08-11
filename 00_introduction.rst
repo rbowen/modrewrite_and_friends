@@ -77,7 +77,7 @@ Acknowledgements
 ````````````````
 
 Many thanks to everyone that works on the reStructuredText project, or
-on Pandoc, or any of the other tools that I used to create this
+on Sphinx, or any of the other tools that I used to create this
 document. Particular thanks to Kushal Dal for pointing me to RST in the
 first place.
 

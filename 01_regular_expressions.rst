@@ -368,7 +368,7 @@ This will look for the sequence "abc" appearing one or more times, and so would 
 Backreferences
 ``````````````
 
-.. _Backreferences:
+.. _backreferences:
 .. index:: Backreferences
 
 Even more useful is the "capturing" functionality of the parentheses. Once a pattern has 

@@ -38,123 +38,118 @@ This, and much more, will be revealed in the coming chapters.
 DocumentRoot
 ------------
 
-\label{documentroot}
-\index{DocumentRoot}
+.. index:: DocumentRoot
 
-The \verb~DocumentRoot~ directive specifies the filesystem directory from which static content will be served. It's helpful to think of this as the default behavior of the Apache http server when no other content source is found.
+The `DocumentRoot` directive specifies the filesystem directory from which static content will be served. It's helpful to think of this as the default behavior of the Apache http server when no other content source is found.
 
 Consider a configuration of the following:
 
-\begin{verbatim}
-DocumentRoot /var/www/html
-\end{verbatim}
+::
 
-With that setting in place, a request for \verb~http://example.com/one/two/three.html~ will result in the file \verb~/var/www/html/one/two/three.html~ being served to the client with a MIME type derived from the file name - in this case, \verb~text/html~.
+    DocumentRoot /var/www/html
 
-The \verb~DirectoryIndex~ directive specifies what file, or files, will be served in the event that a directory is requested. For example, if you have the configuration:
+With that setting in place, a request for <http://example.com/one/two/three.html> will result in the file `/var/www/html/one/two/three.html` being served to the client with a MIME type derived from the file name - in this case, `text/html`.
 
-\begin{verbatim}
-DocumentRoot /var/www/html
-DirectoryIndex index.html index.php
-\end{verbatim}
+The `DirectoryIndex` directive specifies what file, or files, will be served in the event that a directory is requested. For example, if you have the configuration:
 
-Then when the URL \verb~http://example.com/one/two/~ is requested, Apache httpd will attempt to serve the file \verb~/var/www/html/index.html~ and, if it's not able to find that, will attempt to serve the file \verb~/var/www/html/index.php~.
+::
+
+    DocumentRoot /var/www/html
+    DirectoryIndex index.html index.php
+
+Then when the URL <http://example.com/one/two/> is requested, Apache httpd will attempt to serve the file `/var/www/html/index.html` and, if it's not able to find that, will attempt to serve the file `/var/www/html/index.php`.
 
 If neither of those files is available, the next thing it will try to do is serve a directory index.
 
-\section{Directory index}
-\label{autoindex}
-\index{Directory index}
-\index{Autoindex}
+Directory index
+---------------
 
-The module \verb~mod_autoindex~ serves a file listing for any directory that doesn't contain a \verb~DirectoryIndex~ file.
+.. index:: Directory index
+.. index:: Autoindex
+.. index:: mod_autoindex
 
-To permit directory listings, you must enable the \verb~Indexes~ setting of the \verb~Options~ directive:
+The module `mod_autoindex` serves a file listing for any directory that doesn't contain a `DirectoryIndex` file.
 
-\begin{verbatim}
-Options +Indexes
-\end{verbatim}
+To permit directory listings, you must enable the `Indexes` setting of the `Options` directive:
 
-See the documentation of the \verb~Options~ (http://httpd.apache.org/docs/current/mod/core.html\#options) for further discussion of that directive.
+::
 
-If the \verb~Indexes~ option is on, then a directory listing will be displayed, with whatever features are enabled by the \verb~IndexOptions~ directive.
+    Options +Indexes
+
+See the documentation of the `Options` <http://httpd.apache.org/docs/current/mod/core.html#options> for further discussion of that directive.
+
+If the `Indexes` option is on, then a directory listing will be displayed, with whatever features are enabled by the `IndexOptions` directive.
 
 Typically, a directory will look like the example shown below.
 
-\begin{figure}[tbph]
-\centering
-\includegraphics[width=0.7\linewidth]{./figures/autoindex1.png}
-\caption{Example directory index}
-\label{fig:autoindex1}
-\end{figure}
+.. image:: figures/autoindex1.png
 
-For further discussion of the autoindex functionality, consult the \verb~mod_autoindex~ documentation at \verb~http://httpd.apache.org/docs/current/mod/mod_autoindex.html~.
+For further discussion of the autoindex functionality, consult the `mod_autoindex` documentation at <http://httpd.apache.org/docs/current/mod/mod_autoindex.html>.
 
-\textit{Future versions of this book will include more detailed information about directory listings.}
+*Future versions of this book will include more detailed information about directory listings.*
 
 Alias
 -----
 
-\index{Alias}
-\label{alias}
+.. index:: Alias
 
-The Alias directive is used to map a URL to a directory path outside of your \verb~DocumentRoot~ directory.
+The Alias directive is used to map a URL to a directory path outside of your `DocumentRoot` directory.
 
-\begin{verbatim}
-Alias /icons /var/www/icons
-\end{verbatim}
+::
 
-An Alias is usually accompanied by a \verb~<Directory>~ stanza granting httpd permission to look in that directory. In the case of the above Alias, for example, add the following:
+    Alias /icons /var/www/icons
 
-\begin{verbatim}
-<Directory /var/www/icons>
-  Require all granted
-</Directory>
-\end{verbatim}
+An Alias is usually accompanied by a `<Directory>` stanza granting httpd permission to look in that directory. In the case of the above Alias, for example, add the following:
+
+::
+
+    <Directory /var/www/icons>
+      Require all granted
+    </Directory>
 
 Or, if you're using httpd 2.2 or earlier:
 
-\begin{verbatim}
-<Directory /var/www/icons>
-  Order allow,deny
-  Allow from all
-</Directory>
-\end{verbatim}
+::
 
-\index{ScriptAlias}
-There's a special form of the \verb~Alias~ directive - \verb~ScriptAlias~ - which has the additional property that any file found in the referenced directory will be assumed to be a CGI program, and httpd will attempt to execute it and sent the output to the client.
+    <Directory /var/www/icons>
+      Order allow,deny
+      Allow from all
+    </Directory>
 
-\index{CGI}
-CGI programming is outside of the scope of this book. You may read more about it at \verb~http://httpd.apache.org/docs/current/howto/cgi.html~
+.. index:: ScriptAlias
+.. index:: CGI
+
+There's a special form of the `Alias` directive - `ScriptAlias` - which has the additional property that any file found in the referenced directory will be assumed to be a CGI program, and httpd will attempt to execute it and sent the output to the client.
+
+CGI programming is outside of the scope of this book. You may read more about it at <http://httpd.apache.org/docs/current/howto/cgi.html>
 
 Redirect
 --------
 
-\index{Redirect}
-\label{redirect}
+.. index:: Redirect
 
-The purpose of the \verb~Redirect~ directive is to cause a requested URL to result in a redirection to a different resource, either on the same website or on a different server entirely.
+The purpose of the `Redirect` directive is to cause a requested URL to result in a redirection to a different resource, either on the same website or on a different server entirely.
 
-The \verb~Redirect~ directive results in a \verb~Location~ header, and a 30x status code, being sent to the client, which will then make a new request for the specified resource.
+The `Redirect` directive results in a `Location` header, and a 30x status code, being sent to the client, which will then make a new request for the specified resource.
 
 The exact value of the 30x status code will influence what the client does with this information, as indicated in the table below:
 
-\begin{tabular}{|c|c|}
-\hline Code  & Meaning  \\ 
-\hline 300 & Multiple Choice - Several options are available \\ 
-\hline 301 & Moved Permanently \\
-\hline 302 & Temporary Redirect \\
-\hline 304 & Not Modified - use whatever version you have cached \\
-\hline 
-\end{tabular} 
+====  =======
+Code  Meaning
+----  -------
+300   Multiple Choice - Several options are available
+301   Moved Permanently
+302   Temporary Redirect
+304   Not Modified - use whatever version you have cached
+====  =======
 
 Other 30x statuses are available, but these are the only ones we'll concern ourselves with at the moment.
 
-The syntax of the \verb~Redirect~ directive is as follows:
+The syntax of the `Redirect` directive is as follows:
 
-\begin{verbatim}
-Redirect [status] RequestedURL TargetUrl
-\end{verbatim}
+::
+
+    Redirect [status] RequestedURL TargetUrl
 
 Location
 --------

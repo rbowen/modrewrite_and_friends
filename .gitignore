@@ -1,2 +1,6 @@
 # Build shouldn't be versioned
 _build
+
+# tmp files
+*.swp
+

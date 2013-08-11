@@ -68,6 +68,11 @@ where he works with the OpenStack community. See
 
 He lives in Lexington, Kentucky, with his wife and kids. If you want a cat, drop by.
 
+Get Involved
+````````````
+
+If you'd like to get involved in the creation of this book, or if you'd like to tell me about something that needs fixed, Fork it on GitHub <https://github.com/rbowen/modrewrite_and_friends> and submit pull requests.
+
 Acknowledgements
 ````````````````
 

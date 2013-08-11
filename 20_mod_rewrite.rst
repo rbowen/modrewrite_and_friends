@@ -141,7 +141,7 @@ images/puppies directory  ``RewriteRule ^(.*).jpg /dogs/$1.gif``
 
 For the moment, don't worry too much about what the individual rules do.
 Look instead at the URL path that is being considered in each rule, and
-notice that for each directory that a .htaccess file is placed in, the directory path that \verb~RewriteRule~ may consider is relative to that directory, and anything above that becomes invisible for the purpose of mod_rewrite.
+notice that for each directory that a .htaccess file is placed in, the directory path that ``RewriteRule`` may consider is relative to that directory, and anything above that becomes invisible for the purpose of mod_rewrite.
 
 Don't worry too much if this isn't crystal clear at this point. It will become more clear as we proceed and you see more examples.
 
@@ -158,7 +158,7 @@ RewriteOptions
 RewriteRule
 -----------
 
-We're going to start with the `RewriteRule` directive, as it is the workhorse of mod_rewrite, and the directive that you'll encounter most frequently.
+We'll start the main technical discussion of mod_rewrite with the `RewriteRule` directive, as it is the workhorse of mod_rewrite, and the directive that you'll encounter most frequently.
 
 `RewriteRule` performs manipulation of a requested URL, and along the way can do a number of additional things.
 
@@ -180,29 +180,30 @@ The following sections will discuss each of those arguments in great detail.
 Pattern
 ```````
 
-The \verb~PATTERN~ argument of the \verb~RewriteRule~ is a regular expression that is applied to the URL path, or file path, depending on the context.
+The ``PATTERN`` argument of the ``RewriteRule`` is a regular expression that is applied to the URL path, or file path, depending on the context.
 
-In VirtualHost context, or in server-wide context, \verb~PATTERN~ will be matched against the part of the URL after the hostname and port, and before the query string. For example, in the URL \verb~http://example.com/dogs/index.html?dog=collie~, the pattern will be matched against \verb~/dogs/index.html~.
+In VirtualHost context, or in server-wide context, ``PATTERN`` will be matched against the part of the URL after the hostname and port, and before the query string. For example, in the URL <http://example.com/dogs/index.html?dog=collie>, the pattern will be matched against ``/dogs/index.html``.
 
-In Directory and htaccess context, \verb~PATTERN~ will be matched against the filesystem path, after removing the prefix that led the server to the current \verb~RewriteRule~ (e.g. either "dogs/index.html" or "index.html" depending on where the directives are defined).
+In Directory and htaccess context, ``PATTERN`` will be matched against the filesystem path, after removing the prefix that led the server to the current ``RewriteRule`` (e.g. either "dogs/index.html" or "index.html" depending on where the directives are defined).
 
-Subsequent \verb~RewriteRule~ patterns are matched against the output of the last matching \verb~RewriteRule~.
+Subsequent ``RewriteRule`` patterns are matched against the output of the last matching ``RewriteRule``.
 
-It is assumed, at this point, that you've already read Chapter \ref{chapter_regex}, and/or are familiar with what a regular expression is, and how to craft one.
+It is assumed, at this point, that you've already read the chapter `Introduction to Regular Expressions`_, and/or are familiar with what a regular expression is, and how to craft one.
 
 Target
 ``````
 
-The target of a \verb~RewriteRule~ can be one of the following:
+The target of a ``RewriteRule`` can be one of the following:
 
-\subsection{A file-system path}
+A file-system path
+''''''''''''''''''
 
 Designates the location on the file-system of the resource to be delivered to the client. Substitutions are only treated as a file-system path when the rule is configured in server (virtualhost) context and the first component of the path in the substitution exists in the file-system
 
 URL-path
 ''''''''
 
-A DocumentRoot-relative path to the resource to be served. Note that mod_rewrite tries to guess whether you have specified a file-system path or a URL-path by checking to see if the first segment of the path exists at the root of the file-system. For example, if you specify a Substitution string of \verb~/www/file.html~, then this will be treated as a URL-path unless a directory named www exists at the root or your file-system (or, in the case of using rewrites in a .htaccess file, relative to your document root), in which case it will be treated as a file-system path. If you wish other URL-mapping directives (such as Alias) to be applied to the resulting URL-path, use the \verb~[PT]~ flag as described below.
+A DocumentRoot-relative path to the resource to be served. Note that mod_rewrite tries to guess whether you have specified a file-system path or a URL-path by checking to see if the first segment of the path exists at the root of the file-system. For example, if you specify a Substitution string of ``/www/file.html``, then this will be treated as a URL-path unless a directory named www exists at the root or your file-system (or, in the case of using rewrites in a .htaccess file, relative to your document root), in which case it will be treated as a file-system path. If you wish other URL-mapping directives (such as Alias) to be applied to the resulting URL-path, use the ``[PT]`` flag as described below.
 
 Absolute URL
 ''''''''''''
@@ -699,27 +700,33 @@ The removed prefix always ends with a slash, meaning the matching occurs against
 
 Although rewrite rules are syntactically permitted in \verb~<Location>~ and \verb~<Files>~ sections, this should never be necessary and is unsupported.
 
-\section{The Query String}
+The Query String
+----------------
 
 Many scenarios that come up on the support channels call for modifying a request based on the query string (the bit of a URL following a ?). This is not something \verb~RewriteRule~ can do, and requires the services of the \verb~RewriteCond~ directive. See Chapter \ref{rewritecond}.
 
-\section{RewriteBase}
+RewriteBase
+-----------
 
-\chapter{RewriteCond}
-\label{rewritecond}
-\index{RewriteCond}
+.. index:: RewriteBase
+
+RewriteCond
+-----------
+
+.. index:: RewriteCond
 
 The \verb~RewriteCond~ directive attaches additional conditions on a \verb~RewriteRule~, and may also set backreferences that may be used in the rewrite target.
 
 
+RewriteMap
+----------
 
-\chapter{RewriteMap}
-\label{chapter_rewritemap}
-\index{RewriteMap}
+.. index:: RewriteMap
 
 The \verb~RewriteMap~ directive gives you a way to call external mapping routines to simplify your \verb~RewriteRule~s. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a \verb~RewriteMap~ in a \verb~RewriteRule~ or \verb~RewriteCond~.
 
-\section{Creating a RewriteMap}
+Creating a RewriteMap
+`````````````````````
 
 The \verb~RewriteMap~ directive creates an alias which you can then invoke in either a \verb~RewriteRule~ or \verb~RewriteCond~ directive. You can think of it as defining a function that you can call later on.
 
@@ -737,7 +744,8 @@ RewriteMap MapName MapType:MapSource
 
 The \verb~RewriteMap~ directive must be used either in virtualhost context, or in global server context. This is because a \verb~RewriteMap~ is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a \verb~.htaccess~ file.
 
-\section{Using a RewriteMap}
+Using a RewriteMap
+``````````````````
 
 Once you have defined a \verb~RewriteMap~, you can then use it in a \verb~RewriteRule~ or \verb~RewriteCond~ as follows:
 
@@ -754,11 +762,14 @@ RewriteRule ^ ${examplemap:%{REQUEST_URI}}
 
 TODO: DEFAULT RESULT
 
-\section{RewriteMap Types}
+RewriteMap Types
+````````````````
 
 There are a number of different map types which may be used in a \verb~RewriteMap~.
 
-\subsection{int}
+int
+'''
+
 \label{rewritemap_int}
 \index{RewriteMap!int}
 
@@ -787,27 +798,37 @@ RewriteRule (.*?[A-Z]+.*) ${lc:$1} [R=301]
 \subsubsection{escape}
 \subsubsection{unescape}
 
-\subsection{txt}
+txt
+'''
+
 \label{rewritemap_txt}
 \index{RewriteMap!txt}
 
 A \verb~txt~ map defines a one-to-one mapping from argument to target.
 
-\subsection{rnd}
+rnd
+'''
+
 \label{rewritemap_rnd}
 \index{RewriteMap!rnd}
 
 A \verb~rnd~ map will randomly select one value from the specified text file.
 
-\subsection{dbm}
+dbm
+'''
+
 \label{rewritemap_dbm}
 \index{RewriteMap!dbm}
 
-\subsection{prg}
+prg
+'''
+
 \label{rewritemap_prg}
 \index{RewriteMap!prg}
 
-\subsection{dbd}
+dbd
+'''
+
 \label{rewritemap_dbd}
 \index{RewriteMap!dbd}
 

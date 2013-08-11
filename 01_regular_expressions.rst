@@ -3,13 +3,14 @@ Regular Expressions
 
 .. index:: Regular Expressions
 
-
 Introduction to Regular Expressions
 -----------------------------------
 
+.. _Introduction to Regular Expressions:
+
 Much of the content in this book requires that you have some mastery
-of regular expressions. Indeed, in my years of teaching mod\_rewrite,
-it has been my observation that people don't find mod\_rewrite hard at
+of regular expressions. Indeed, in my years of teaching mod_rewrite,
+it has been my observation that people don't find mod_rewrite hard at
 all: they're just intimidated by regular expressions.
 
 .. index:: Mastering Regular Expressions

@@ -1,6 +1,9 @@
 Introduction
 ============
 
+Introduction
+------------
+
 In the first version of this book,
 **The Definitive Guide to Apache mod_rewrite**
 <http://drbacchus.com/book/rewrite>,
@@ -29,7 +32,7 @@ to hold your hand and offer you more in depth assistance in your journey
 towards Apache httpd mastery.
 
 About this book
----------------
+```````````````
 
 This book has a long and storied history. It has been written in LaTeX,
 using TexStudio. It has been written using markdown and docbook, using
@@ -52,7 +55,7 @@ and I'll send you an updated version.
 A brief word about the documentation. The official docs, at ``http://httpd.apache.org/docs/``, are great, and are the work of many dedicated people. I'm one of many. This book is intended to augment those docs, and not replace them. If it appears sometimes that I have copied shamelessly from the documentation, I humbly ask you to remember that I participated in writing those docs, and the edits flowed both directions.
 
 About the author
-----------------
+````````````````
 
 Rich Bowen has been involved on the Apache http server documentation
 since about 1998. He is also the author of **Apache Cookbook**, and **The
@@ -60,16 +63,18 @@ Definitive Guide to Apache mod_rewrite**. You can frequently find him in
 #httpd, on ``irc.freenode.net``. under the name of DrBacchus.
 
 Rich works at Red Hat, in the OSAS (Open Source and Standards) group,
-where he works with the OpenStack community.
+where he works with the OpenStack community. See
+<http://openstack.redhat.com/> for details.
 
 He lives in Lexington, Kentucky, with his wife and kids. If you want a cat, drop by.
 
 Acknowledgements
-----------------
+````````````````
 
 Many thanks to everyone that works on the reStructuredText project, or
 on Pandoc, or any of the other tools that I used to create this
-document.
+document. Particular thanks to Kushal Dal for pointing me to RST in the
+first place.
 
 Thanks to ``fajita``, and the other regulars on #httpd (on the ``irc.freenode.net`` network). ``fajita`` is my research assistant, and knows more than everyone else on the channel put together. And the folks on #ahd who keep me sane. Or insane. Depending on how you measure. A warm hog to each of you.
 

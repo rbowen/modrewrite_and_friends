@@ -208,7 +208,7 @@ A DocumentRoot-relative path to the resource to be served. Note that mod_rewrite
 Absolute URL
 ''''''''''''
 
-If an absolute URL is specified, mod_rewrite checks to see whether the hostname matches the current host. If it does, the scheme and hostname are stripped out and the resulting path is treated as a URL-path. Otherwise, an external redirect is performed for the given URL. To force an external redirect back to the current host, see the \verb~[R]~ flag below.
+If an absolute URL is specified, mod_rewrite checks to see whether the hostname matches the current host. If it does, the scheme and hostname are stripped out and the resulting path is treated as a URL-path. Otherwise, an external redirect is performed for the given URL. To force an external redirect back to the current host, see the ``[R]`` flag below.
 
 \- (dash)
 '''''''''
@@ -221,7 +221,7 @@ Flags
 .. index:: Flags
 .. index:: RewrteRule: Flags
 
-Flags modify the behavior of the rule. You may have zero or more flags, and the effect is cumulative. Flags may be repeated where appropriate. For example, you may set several environment variables by using several \verb~[E]~ flags, or set several cookies with multiple \verb~[CO]~ flags. Flags are separated with commas:
+Flags modify the behavior of the rule. You may have zero or more flags, and the effect is cumulative. Flags may be repeated where appropriate. For example, you may set several environment variables by using several ``[E]`` flags, or set several cookies with multiple ``[CO]`` flags. Flags are separated with commas:
 
 ::
 
@@ -245,11 +245,11 @@ mod_rewrite has to unescape URLs before mapping them, so backreferences are unes
 
     RewriteRule ^search/(.*)$ /search.php?term=$1
 
-Given a search term of \verb~'x & y/z'~, a browser will encode it as \verb~'x%20%26%20y%2Fz'~, making the request \verb~'search/x%20%26%20y%2Fz'~. Without the B flag, this rewrite rule will map to \verb~'search.php?term=x & y/z'~, which isn't a valid URL, and so would be encoded as \verb~search.php?term=x%20&y%2Fz=~, which is not what was intended.
+Given a search term of ``'x & y/z'``, a browser will encode it as ``'x%20%26%20y%2Fz'``, making the request ``'search/x%20%26%20y%2Fz'``. Without the B flag, this rewrite rule will map to ``'search.php?term=x & y/z'``, which isn't a valid URL, and so would be encoded as ``search.php?term=x%20&y%2Fz=``, which is not what was intended.
 
-With the B flag set on this same rule, the parameters are re-encoded before being passed on to the output URL, resulting in a correct mapping to \verb~/search.php?term=x%20%26%20y%2Fz~.
+With the B flag set on this same rule, the parameters are re-encoded before being passed on to the output URL, resulting in a correct mapping to ``/search.php?term=x%20%26%20y%2Fz``.
 
-Note that you may also need to set \verb~AllowEncodedSlashes~ to On to get this particular example to work, as httpd does not allow encoded slashes in URLs, and returns a 404 if it sees one.
+Note that you may also need to set ``AllowEncodedSlashes`` to ``On`` to get this particular example to work, as httpd does not allow encoded slashes in URLs, and returns a 404 if it sees one.
 
 This escaping is particularly necessary in a proxy situation, when the backend may break if presented with an unescaped URL.
 
@@ -260,7 +260,7 @@ C - chain
 .. index:: Rewrite flags! C
 .. index:: Flags! C
 
-The \verb~[C]~ or \verb~[chain]~ flag indicates that the RewriteRule is chained to the next rule. That is, if the rule matches, then it is processed as usual and control moves on to the next rule. However, if it does not match, then the next rule, and any other rules that are chained together, will be skipped.
+The ``[C]`` or ``[chain]`` flag indicates that the RewriteRule is chained to the next rule. That is, if the rule matches, then it is processed as usual and control moves on to the next rule. However, if it does not match, then the next rule, and any other rules that are chained together, will be skipped.
 
 CO - cookie
 '''''''''''
@@ -269,7 +269,7 @@ CO - cookie
 .. index:: Rewrite flags! CO
 .. index:: Flags! CO
 
-The \verb~[CO]~, or \verb~[cookie]~ flag, allows you to set a cookie when a particular RewriteRule matches. The argument consists of three required fields and four optional fields.
+The ``[CO]``, or ``[cookie]`` flag, allows you to set a cookie when a particular RewriteRule matches. The argument consists of three required fields and four optional fields.
 
 The full syntax for the flag, including all attributes, is as follows:
 
@@ -294,8 +294,8 @@ A value of 0 indicates that the cookie will persist only for the current browser
 Path
 """"
 
-The path, on the current website, for which the cookie is valid, such as \verb~/customers/~ or \verb~/files/download/~.
-By default, this is set to \verb~/~ - that is, the entire website.
+The path, on the current website, for which the cookie is valid, such as ``/customers/`` or ``/files/download/``.
+By default, this is set to ``/`` - that is, the entire website.
 
 Secure
 """"""
@@ -409,9 +409,9 @@ F - forbidden
 .. index:: Flags!F
 .. index:: F flag
 
-Using the \verb~[F]~ flag causes the server to return a 403 Forbidden status code to the client. While the same behavior can be accomplished using the Deny directive, this allows more flexibility in assigning a Forbidden status.
+Using the ``[F]`` flag causes the server to return a 403 Forbidden status code to the client. While the same behavior can be accomplished using the Deny directive, this allows more flexibility in assigning a Forbidden status.
 
-The following rule will forbid \verb~.exe~ files from being downloaded from your server.
+The following rule will forbid ``.exe`` files from being downloaded from your server.
 
 \begin{verbatim}
 RewriteRule \.exe - [F]
@@ -419,22 +419,22 @@ RewriteRule \.exe - [F]
 
 This example uses the "-" syntax for the rewrite target, which means that the requested URI is not modified. There's no reason to rewrite to another URI, if you're going to forbid the request.
 
-When using \verb~[F]~, an \verb~[L]~ is implied - that is, the response is returned immediately, and no further rules are evaluated.
+When using ``[F]``, an ``[L]`` is implied - that is, the response is returned immediately, and no further rules are evaluated.
 
 \subsection{G - gone}
 \label{gflag}
 \index{G flag}
 \index{Rewrite flags!G}
 
-The \verb~[G]~ flag forces the server to return a 410 Gone status with the response. This indicates that a resource used to be available, but is no longer available.
+The ``[G]`` flag forces the server to return a 410 Gone status with the response. This indicates that a resource used to be available, but is no longer available.
 
-As with the \verb~[F]~ flag, you will typically use the "-" syntax for the rewrite target when using the \verb~[G]~ flag:
+As with the ``[F]`` flag, you will typically use the "-" syntax for the rewrite target when using the ``[G]`` flag:
 
-\begin{verbatim}
-RewriteRule oldproduct - [G,NC]
-\end{verbatim}
+::
 
-When using \verb~[G]~, an \verb~[L]~ is implied - that is, the response is returned immediately, and no further rules are evaluated.
+    RewriteRule oldproduct - [G,NC]
+
+When using ``[G]``, an ``[L]`` is implied - that is, the response is returned immediately, and no further rules are evaluated.
 
 \subsection{H - handler}
 \label{hflag}
@@ -447,7 +447,7 @@ Forces the resulting request to be handled with the specified handler. For examp
 RewriteRule !\. - [H=application/x-httpd-php]
 \end{verbatim}
 
-The regular expression above - \verb~!\.~ - will match any request that does not contain the literal . character.
+The regular expression above - ``!\.`` - will match any request that does not contain the literal . character.
 
 This can be also used to force the handler based on some conditions. For example, the following snippet used in per-server context allows .php files to be displayed by mod\_php if they are requested with the .phps extension:
 
@@ -455,37 +455,41 @@ This can be also used to force the handler based on some conditions. For example
 RewriteRule ^(/source/.+\.php)s$ $1 [H=application/x-httpd-php-source]
 \end{verbatim}
 
-The regular expression above - \verb~^(/source/.+\.php)s$~ - will match any request that starts with \verb~/source/~ followed by 1 or n characters followed by \verb~.phps~ literally. The backreference \verb~$1~ referrers to the captured match within parenthesis of the regular expression.
+The regular expression above - ``^(/source/.+\.php)s$`` - will match any request that starts with ``/source/`` followed by 1 or n characters followed by ``.phps`` literally. The backreference ``$1`` referrers to the captured match within parenthesis of the regular expression.
 
-\subsection{L - last}
-\label{lflag}
-\index{L flag}
-\index{Rewrite flags!L}
+L - last
+''''''''
 
-The \verb~[L]~ flag causes mod_rewrite to stop processing the rule set. In most contexts, this means that if the rule matches, no further rules will be processed. This corresponds to the last command in Perl, or the break command in C. Use this flag to indicate that the current rule should be applied immediately without considering further rules.
+.. index:: L flag
+.. index:: Rewrite flags!L
+.. index:: Flags!L
 
-If you are using \verb~RewriteRule~ in either .htaccess files or in \verb~<Directory>~ sections, it is important to have some understanding of how the rules are processed. The simplified form of this is that once the rules have been processed, the rewritten request is handed back to the URL parsing engine to do what it may with it. It is possible that as the rewritten request is handled, the .htaccess file or \verb~<Directory>~ section may be encountered again, and thus the ruleset may be run again from the start. Most commonly this will happen if one of the rules causes a redirect - either internal or external - causing the request process to start over.
+The ``[L]`` flag causes mod_rewrite to stop processing the rule set. In most contexts, this means that if the rule matches, no further rules will be processed. This corresponds to the last command in Perl, or the break command in C. Use this flag to indicate that the current rule should be applied immediately without considering further rules.
 
-It is therefore important, if you are using \verb~RewriteRule~ directives in one of these contexts, that you take explicit steps to avoid rules looping, and not count solely on the \verb~[L]~ flag to terminate execution of a series of rules, as shown below.
+If you are using ``RewriteRule`` in either .htaccess files or in ``<Directory>`` sections, it is important to have some understanding of how the rules are processed. The simplified form of this is that once the rules have been processed, the rewritten request is handed back to the URL parsing engine to do what it may with it. It is possible that as the rewritten request is handled, the .htaccess file or ``<Directory>`` section may be encountered again, and thus the ruleset may be run again from the start. Most commonly this will happen if one of the rules causes a redirect - either internal or external - causing the request process to start over.
 
-An alternative flag, \verb~[END]~, can be used to terminate not only the current round of rewrite processing but prevent any subsequent rewrite processing from occurring in per-directory (htaccess) context. This does not apply to new requests resulting from external redirects.
+It is therefore important, if you are using ``RewriteRule`` directives in one of these contexts, that you take explicit steps to avoid rules looping, and not count solely on the ``[L]`` flag to terminate execution of a series of rules, as shown below.
 
-The example given here will rewrite any request to index.php, giving the original request as a query string argument to \verb~index.php~, however, the \verb~RewriteCond~ ensures that if the request is already for index.php, the \verb~RewriteRule~ will be skipped.
+An alternative flag, ``[END]``, can be used to terminate not only the current round of rewrite processing but prevent any subsequent rewrite processing from occurring in per-directory (htaccess) context. This does not apply to new requests resulting from external redirects.
 
-\begin{verbatim}
-RewriteBase /
-RewriteCond %{REQUEST_URI} !=/index.php
-RewriteRule ^(.*) /index.php?req=$1 [L,PT]
-\end{verbatim}
+The example given here will rewrite any request to index.php, giving the original request as a query string argument to ``index.php``, however, the ``RewriteCond`` ensures that if the request is already for index.php, the ``RewriteRule`` will be skipped.
 
-\subsection{N - next}
-\label{nflag}
-\index{N flag}
-\index{Rewrite flags!N}
+::
 
-The \verb~[N]~ flag causes the ruleset to start over again from the top, using the result of the ruleset so far as a starting point. Use with extreme caution, as it may result in loop.
+    RewriteBase /
+    RewriteCond %{REQUEST_URI} !=/index.php
+    RewriteRule ^(.*) /index.php?req=$1 [L,PT]
 
-The \verb~[N]~ flag could be used, for example, if you wished to replace a certain string or letter repeatedly in a request. The example shown here will replace A with B everywhere in a request, and will continue doing so until there are no more As to be replaced.
+N - next
+''''''''
+
+.. index:: N flag
+.. index:: Rewrite flags!N
+.. index:: Flags!N
+
+The ``[N]`` flag causes the ruleset to start over again from the top, using the result of the ruleset so far as a starting point. Use with extreme caution, as it may result in loop.
+
+The ``[N]`` flag could be used, for example, if you wished to replace a certain string or letter repeatedly in a request. The example shown here will replace A with B everywhere in a request, and will continue doing so until there are no more As to be replaced.
 
 \begin{verbatim}
 RewriteRule (.*)A(.*) $1B$2 [N]
@@ -493,153 +497,173 @@ RewriteRule (.*)A(.*) $1B$2 [N]
 
 You can think of this as a while loop: While this pattern still matches (i.e., while the URI still contains an A), perform this substitution (i.e., replace the A with a B).
 
-\subsection{NC - nocase}
-\label{ncflag}
-\index{NC flag}
-\index{Rewrite flags!NC}
+NC - nocase
+'''''''''''
 
-Use of the \verb~[NC]~ flag causes the \verb~RewriteRule~ to be matched in a case-insensitive manner. That is, it doesn't care whether letters appear as upper-case or lower-case in the matched URI.
+.. index:: NC flag
+.. index:: Rewrite flags!NC
+.. index:: Flags!NC
+
+Use of the ``[NC]`` flag causes the ``RewriteRule`` to be matched in a case-insensitive manner. That is, it doesn't care whether letters appear as upper-case or lower-case in the matched URI.
 
 In the example below, any request for an image file will be proxied to your dedicated image server. The match is case-insensitive, so that .jpg and .JPG files are both acceptable, for example.
 
-\begin{verbatim}
-RewriteRule (.*\.(jpg|gif|png))$ http://images.example.com$1 [P,NC]
-\end{verbatim}
+::
 
-\subsection{NE - noescape}
-\label{neflag}
-\index{NE flag}
-\index{Rewrite flag!NE}
+    RewriteRule (.*\.(jpg|gif|png))$ http://images.example.com$1 [P,NC]
 
-By default, special characters, such as \verb~\&~ and \verb~?~, for example, will be converted to their hexcode equivalent. Using the \verb~[NE]~ flag prevents that from happening.
+NE - noescape
+'''''''''''''
 
-\begin{verbatim}
-RewriteRule ^/anchor/(.+) /bigpage.html#$1 [NE,R]
-\end{verbatim}
+.. index:: NE flag
+.. index:: Rewrite flag!NE
+.. index:: Flag!NE
 
-The above example will redirect \verb~/anchor/xyz~ to \verb~/bigpage.html#xyz~. Omitting the \verb~[NE]~ will result in the \verb~#~ being converted to its hexcode equivalent, \verb~%23~, which will then result in a 404 Not Found error condition.
+By default, special characters, such as ``\&`` and ``?``, for example, will be converted to their hexcode equivalent. Using the ``[NE]`` flag prevents that from happening.
 
-\subsection{NS - nosubreq}
-\label{nsflag}
-\index{NS flag}
-\index{Rewrite flag!NS}
+::
 
-Use of the \verb~[NS]~ flag prevents the rule from being used on subrequests. For example, a page which is included using an SSI (Server Side Include) is a subrequest, and you may want to avoid rewrites happening on those subrequests. Also, when mod\_dir tries to find out information about possible directory default files (such as index.html files), this is an internal subrequest, and you often want to avoid rewrites on such subrequests. On subrequests, it is not always useful, and can even cause errors, if the complete set of rules are applied. Use this flag to exclude problematic rules.
+    RewriteRule ^/anchor/(.+) /bigpage.html#$1 [NE,R]
+
+The above example will redirect ``/anchor/xyz`` to ``/bigpage.html#xyz``. Omitting the ``[NE]`` will result in the ``#`` being converted to its hexcode equivalent, ``%23``, which will then result in a 404 Not Found error condition.
+
+NS - nosubreq
+'''''''''''''
+
+.. index:: NS flag
+.. index:: Rewrite flag!NS
+.. index:: Flag!NS
+
+Use of the ``[NS]`` flag prevents the rule from being used on subrequests. For example, a page which is included using an SSI (Server Side Include) is a subrequest, and you may want to avoid rewrites happening on those subrequests. Also, when mod\_dir tries to find out information about possible directory default files (such as index.html files), this is an internal subrequest, and you often want to avoid rewrites on such subrequests. On subrequests, it is not always useful, and can even cause errors, if the complete set of rules are applied. Use this flag to exclude problematic rules.
 
 To decide whether or not to use this rule: if you prefix URLs with CGI-scripts, to force them to be processed by the CGI-script, it's likely that you will run into problems (or significant overhead) on sub-requests. In these cases, use this flag.
 
 Images, javascript files, or css files, loaded as part of an HTML page, are not subrequests - the browser requests them as separate HTTP requests.
 
-\subsection{P - proxy}
-\label{pflag}
-\index{P flag}
-\index{Rewrite flag!P}
+P - proxy
+'''''''''
 
-Use of the \verb~[P]~ flag causes the request to be handled by mod\_proxy, and handled via a proxy request. For example, if you wanted all image requests to be handled by a back-end image server, you might do something like the following:
+.. index:: P flag
+.. index:: Rewrite flag!P
+.. index:: Flag!P
 
-\begin{verbatim}
-RewriteRule /(.*)\.(jpg|gif|png)$ http://images.example.com/$1.$2 [P]
-\end{verbatim}
+Use of the ``[P]`` flag causes the request to be handled by mod\_proxy, and handled via a proxy request. For example, if you wanted all image requests to be handled by a back-end image server, you might do something like the following:
 
-Use of the \verb~[P]~ flag implies \verb~[L]~. That is, the request is immediately pushed through the proxy, and any following rules will not be considered.
+::
 
-You must make sure that the substitution string is a valid URI (typically starting with \verb~http://hostname~ ) which can be handled by the mod\_proxy. If not, you will get an error from the proxy module. Use this flag to achieve a more powerful implementation of the \verb~ProxyPass~ directive, to map remote content into the namespace of the local server.
+    RewriteRule /(.*)\.(jpg|gif|png)$ http://images.example.com/$1.$2 [P]
 
-\subsubsection{Security Warning}
+Use of the ``[P]`` flag implies ``[L]``. That is, the request is immediately pushed through the proxy, and any following rules will not be considered.
+
+You must make sure that the substitution string is a valid URI (typically starting with <http://hostname>) which can be handled by the mod\_proxy. If not, you will get an error from the proxy module. Use this flag to achieve a more powerful implementation of the ``ProxyPass`` directive, to map remote content into the namespace of the local server.
+
+Security Warning
+""""""""""""""""
 
 Take care when constructing the target URL of the rule, considering the security impact from allowing the client influence over the set of URLs to which your server will act as a proxy. Ensure that the scheme and hostname part of the URL is either fixed, or does not allow the client undue influence.
 
-\subsubsection{Performance warning}
+Performance warning
+"""""""""""""""""""
 
-Using this flag triggers the use of mod\_proxy, without handling of persistent connections. This means the performance of your proxy will be better if you set it up with \verb~ProxyPass~ or \verb~ProxyPassMatch~
+Using this flag triggers the use of mod\_proxy, without handling of persistent connections. This means the performance of your proxy will be better if you set it up with ``ProxyPass`` or ``ProxyPassMatch``.
 
 This is because this flag triggers the use of the default worker, which does not handle connection pooling.
 Avoid using this flag and prefer those directives, whenever you can.
 
-Note: mod\_proxy must be enabled in order to use this flag.
+Note: mod_proxy must be enabled in order to use this flag.
 
 See Chapter \ref{chapter_proxy} for a more thorough treatment of proxying.
 
-\subsection{PT - passthrough}
-\label{ptflag}
-\index{PT flag}
-\index{Rewrite flag!PT}
+PT - passthrough
+''''''''''''''''
 
-The target (or substitution string) in a \verb~RewriteRule~ is assumed to be a file path, by default. The use of the \verb~[PT]~ flag causes it to be treated as a URI instead. That is to say, the use of the \verb~[PT]~ flag causes the result of the \verb~RewriteRule~ to be passed back through URL mapping, so that location-based mappings, such as \verb~Alias~, \verb~Redirect~, or \verb~ScriptAlias~, for example, might have a chance to take effect.
+.. index:: PT flag
+.. index:: Rewrite flag!PT
+.. index:: Flag!PT
 
-If, for example, you have an \verb~Alias~ for \verb~/icons~, and have a \verb~RewriteRule~ pointing there, you should use the \verb~[PT]~ flag to ensure that the \verb~Alias~ is evaluated.
+The target (or substitution string) in a ``RewriteRule`` is assumed to be a file path, by default. The use of the ``[PT]`` flag causes it to be treated as a URI instead. That is to say, the use of the ``[PT]`` flag causes the result of the ``RewriteRule`` to be passed back through URL mapping, so that location-based mappings, such as ``Alias``, ``Redirect``, or ``ScriptAlias``, for example, might have a chance to take effect.
 
-\begin{verbatim}
-Alias /icons /usr/local/apache/icons
-RewriteRule /pics/(.+)\.jpg$ /icons/$1.gif [PT]
-\end{verbatim}
+If, for example, you have an ``Alias`` for ``/icons``, and have a ``RewriteRule`` pointing there, you should use the ``[PT]`` flag to ensure that the ``Alias`` is evaluated.
 
-Omission of the \verb~[PT]~ flag in this case will cause the \verb~Alias~ to be ignored, resulting in a 'File not found' error being returned.
+::
 
-The \verb~[PT]~ flag implies the \verb~[L]~ flag: rewriting will be stopped in order to pass the request to the next phase of processing.
+    Alias /icons /usr/local/apache/icons
+    RewriteRule /pics/(.+)\.jpg$ /icons/$1.gif [PT]
 
-Note that the \verb~[PT]~ flag is implied in per-directory contexts such as \verb~<Directory>~ sections or in .htaccess files. The only way to circumvent that is to rewrite to -.
+Omission of the ``[PT]`` flag in this case will cause the ``Alias`` to be ignored, resulting in a 'File not found' error being returned.
 
-\subsection{QSA - qsappend}
-\label{qsaflag}
-\index{QSA flag}
-\index{Rewrite flag!QSA}
+The ``[PT]`` flag implies the ``[L]`` flag: rewriting will be stopped in order to pass the request to the next phase of processing.
 
-When the replacement URI contains a query string, the default behavior of RewriteRule is to discard the existing query string, and replace it with the newly generated one. Using the \verb~[QSA]~ flag causes the query strings to be combined.
+Note that the ``[PT]`` flag is implied in per-directory contexts such as ``<Directory>`` sections or in .htaccess files. The only way to circumvent that is to rewrite to -.
+
+QSA - qsappend
+''''''''''''''
+
+.. index:: QSA flag
+.. index:: Rewrite flag!QSA
+.. index:: Flag!QSA
+
+When the replacement URI contains a query string, the default behavior of RewriteRule is to discard the existing query string, and replace it with the newly generated one. Using the ``[QSA]`` flag causes the query strings to be combined.
 
 Consider the following rule:
 
-\begin{verbatim}
-RewriteRule /pages/(.+) /page.php?page=$1 [QSA]
-\end{verbatim}
+::
 
-With the \verb~[QSA]~ flag, a request for \verb~/pages/123?one=two~ will be mapped to \verb~/page.php?page=123&one=two~. Without the \verb~[QSA]~ flag, that same request will be mapped to \verb~/page.php?page=123~ - that is, the existing query string will be discarded.
+    RewriteRule /pages/(.+) /page.php?page=$1 [QSA]
 
-\subsection{QSD - qsdiscard}
-\label{qsdflag}
-\index{QSD flag}
-\index{Rewrite flag!QSD}
+With the ``[QSA]`` flag, a request for ``/pages/123?one=two`` will be mapped to ``/page.php?page=123&one=two``. Without the ``[QSA]`` flag, that same request will be mapped to ``/page.php?page=123`` - that is, the existing query string will be discarded.
 
+QSD - qsdiscard
+'''''''''''''''
 
-When the requested URI contains a query string, and the target URI does not, the default behavior of \verb~RewriteRule~ is to copy that query string to the target URI. Using the \verb~[QSD]~ flag causes the query string to be discarded.
+.. index:: QSD flag
+.. index:: Rewrite flag!QSD
+.. index:: Flag!QSD
+
+When the requested URI contains a query string, and the target URI does not, the default behavior of ``RewriteRule`` is to copy that query string to the target URI. Using the ``[QSD]`` flag causes the query string to be discarded.
 
 This flag is available in version 2.4.0 and later.
 
-Using \verb~[QSD]~ and \verb~[QSA]~ together will result in \verb~[QSD]~ taking precedence.
+Using ``[QSD]`` and ``[QSA]`` together will result in ``[QSD]`` taking precedence.
 
-If the target URI has a query string, the default behavior will be observed - that is, the original query string will be discarded and replaced with the query string in the \verb~RewriteRule~ target URI.
+If the target URI has a query string, the default behavior will be observed - that is, the original query string will be discarded and replaced with the query string in the ``RewriteRule`` target URI.
 
 
-\subsection{R - redirect}
-\label{rflag}
-\index{R flag}
-\index{Rewrite flag!R}
+R - redirect
+''''''''''''
 
-Use of the \verb~[R]~ flag causes a HTTP redirect to be issued to the browser. If a fully-qualified URL is specified (that is, including \verb~http://servername/~) then a redirect will be issued to that location. Otherwise, the current protocol, servername, and port number will be used to generate the URL sent with the redirect.
+.. index:: R flag
+.. index:: Rewrite flag!R
+.. index:: Flag!R
 
-Any valid HTTP response status code may be specified, using the syntax \verb~[R=305]~, with a 302 status code being used by default if none is specified. The status code specified need not necessarily be a redirect (3xx) status code. However, if a status code is outside the redirect range (300-399) then the substitution string is dropped entirely, and rewriting is stopped as if the L were used.
+Use of the ``[R]`` flag causes a HTTP redirect to be issued to the browser. If a fully-qualified URL is specified (that is, including <http://servername/>) then a redirect will be issued to that location. Otherwise, the current protocol, servername, and port number will be used to generate the URL sent with the redirect.
+
+Any valid HTTP response status code may be specified, using the syntax ``[R=305]``, with a 302 status code being used by default if none is specified. The status code specified need not necessarily be a redirect (3xx) status code. However, if a status code is outside the redirect range (300-399) then the substitution string is dropped entirely, and rewriting is stopped as if the L were used.
 
 In addition to response status codes, you may also specify redirect status using their symbolic names: temp (default), permanent, or seeother.
 
-You will almost always want to use \verb~[R]~ in conjunction with \verb~[L]~ (that is, use \verb~[R,L]~) because on its own, the \verb~[R]~ flag prepends \verb~http://thishost[:thisport]~ to the URI, but then passes this on to the next rule in the ruleset, which can often result in 'Invalid URI in request' warnings.
+You will almost always want to use ``[R]`` in conjunction with ``[L]`` (that is, use ``[R,L]``) because on its own, the ``[R]`` flag prepends <http://thishost[:thisport]> to the URI, but then passes this on to the next rule in the ruleset, which can often result in 'Invalid URI in request' warnings.
 
-\subsection{S - skip}
-\label{sflag}
-\index{S flag}
-\index{Rewrite flag!S}
+S - skip
+''''''''
 
-The \verb~[S]~ flag is used to skip rules that you don't want to run. The syntax of the skip flag is \verb~[S=N]~, where N signifies the number of rules to skip (provided the RewriteRule and any preceding RewriteCond directives match). This can be thought of as a goto statement in your rewrite ruleset. In the following example, we only want to run the RewriteRule if the requested URI doesn't correspond with an actual file.
+.. index:: S flag
+.. index:: Rewrite flag!S
+.. index:: Flag!S
 
-\begin{verbatim}
-# Is the request for a non-existent file?
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-# If so, skip these two RewriteRules
-RewriteRule .? - [S=2]
+The ``[S]`` flag is used to skip rules that you don't want to run. The syntax of the skip flag is ``[S=N]``, where N signifies the number of rules to skip (provided the RewriteRule and any preceding RewriteCond directives match). This can be thought of as a goto statement in your rewrite ruleset. In the following example, we only want to run the RewriteRule if the requested URI doesn't correspond with an actual file.
 
-RewriteRule (.*\.gif) images.php?$1
-RewriteRule (.*\.html) docs.php?$1
-\end{verbatim}
+::
+
+    # Is the request for a non-existent file?
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # If so, skip these two RewriteRules
+    RewriteRule .? - [S=2]
+
+    RewriteRule (.*\.gif) images.php?$1
+    RewriteRule (.*\.html) docs.php?$1
 
 This technique is useful because a \verb~RewriteCond~ only applies to the \verb~RewriteRule~ immediately following it. Thus, if you want to make a \verb~RewriteCond~ apply to several \verb~RewriteRule~s, one possible technique is to negate those conditions and add a \verb~RewriteRule~ with a \verb~[Skip]~ flag. You can use this to make pseudo if-then-else constructs: The last rule of the then-clause becomes skip=N, where N is the number of rules in the else-clause:
 
@@ -868,7 +892,7 @@ Rewrite Examples
 
 This chapter presents a cookbook of common examples of how you'll use mod_rewrite in the real world. Each example is presented as a problem statement, a solution, and then a discussion of the solution and possible alternatives.
 
-This chapter is likely to evolve over time, and so you are encouraged to check back at \verb~http://rewrite.rcbowen.com/~ frequently for updates.
+This chapter is likely to evolve over time, and so you are encouraged to check back at <http://rewrite.rcbowen.com/> frequently for updates.
 
 .. [#] Or, more to the point, it prevents malicious end-users from finding ways to look there.
 

@@ -275,9 +275,9 @@ The ``[CO]``, or ``[cookie]`` flag, allows you to set a cookie when a particular
 
 The full syntax for the flag, including all attributes, is as follows:
 
-\begin{verbatim}
-[CO=NAME:VALUE:DOMAIN:lifetime:path:secure:httponly]
-\end{verbatim}
+::
+
+    [CO=NAME:VALUE:DOMAIN:lifetime:path:secure:httponly]
 
 You must declare a name, a value, and a domain for the cookie to be set.
 
@@ -360,17 +360,17 @@ VAL may contain backreferences (See section :ref:`backreferences`) (``$N`` or ``
 
 Using the short form
 
-\begin{verbatim}
-[E=VAR]
-\end{verbatim}
+::
+
+    [E=VAR]
 
 you can set the environment variable named VAR to an empty value.
 
 The form
 
-\begin{verbatim}
-[E=!VAR]
-\end{verbatim}
+::
+
+    [E=!VAR]
 
 allows to unset a previously set environment variable named VAR.
 
@@ -378,10 +378,10 @@ Environment variables can then be used in a variety of contexts, including CGI p
 
 The following example sets an environment variable called 'image' to a value of '1' if the requested URI is an image file. Then, that environment variable is used to exclude those requests from the access log.
 
-\begin{verbatim}
-RewriteRule \.(png|gif|jpg)$ - [E=image:1]
-CustomLog logs/access_log combined env=!image
-\end{verbatim}
+::
+
+    RewriteRule \.(png|gif|jpg)$ - [E=image:1]
+    CustomLog logs/access_log combined env=!image
 
 Note that this same effect can be obtained using SetEnvIf. This technique is offered as an example, not as a recommendation.
 
@@ -415,9 +415,9 @@ Using the ``[F]`` flag causes the server to return a 403 Forbidden status code t
 
 The following rule will forbid ``.exe`` files from being downloaded from your server.
 
-\begin{verbatim}
-RewriteRule \.exe - [F]
-\end{verbatim}
+::
+
+    RewriteRule \.exe - [F]
 
 This example uses the "-" syntax for the rewrite target, which means that the requested URI is not modified. There's no reason to rewrite to another URI, if you're going to forbid the request.
 
@@ -449,17 +449,17 @@ H - handler
 
 Forces the resulting request to be handled with the specified handler. For example, one might use this to force all files without a file extension to be parsed by the php handler:
 
-\begin{verbatim}
-RewriteRule !\. - [H=application/x-httpd-php]
-\end{verbatim}
+::
+
+    RewriteRule !\. - [H=application/x-httpd-php]
 
 The regular expression above - ``!\.`` - will match any request that does not contain the literal . character.
 
 This can be also used to force the handler based on some conditions. For example, the following snippet used in per-server context allows .php files to be displayed by mod\_php if they are requested with the .phps extension:
 
-\begin{verbatim}
-RewriteRule ^(/source/.+\.php)s$ $1 [H=application/x-httpd-php-source]
-\end{verbatim}
+::
+
+    RewriteRule ^(/source/.+\.php)s$ $1 [H=application/x-httpd-php-source]
 
 The regular expression above - ``^(/source/.+\.php)s$`` - will match any request that starts with ``/source/`` followed by 1 or n characters followed by ``.phps`` literally. The backreference ``$1`` referrers to the captured match within parenthesis of the regular expression.
 
@@ -497,9 +497,9 @@ The ``[N]`` flag causes the ruleset to start over again from the top, using the 
 
 The ``[N]`` flag could be used, for example, if you wished to replace a certain string or letter repeatedly in a request. The example shown here will replace A with B everywhere in a request, and will continue doing so until there are no more As to be replaced.
 
-\begin{verbatim}
-RewriteRule (.*)A(.*) $1B$2 [N]
-\end{verbatim}
+::
+
+    RewriteRule (.*)A(.*) $1B$2 [N]
 
 You can think of this as a while loop: While this pattern still matches (i.e., while the URI still contains an A), perform this substitution (i.e., replace the A with a B).
 

@@ -721,7 +721,8 @@ Please note that this is a trivial example, and could be better done using ``<Fi
 
 If used in per-directory context, use only - (dash) as the substitution for the entire round of mod_rewrite processing, otherwise the MIME-type set with this flag is lost due to an internal re-processing (including subsequent rounds of mod_rewrite processing). The L flag can be useful in this context to end the current round of mod_rewrite processing.
 
-\section{Per-directory rewrites}
+Per-directory rewrites
+----------------------
 
 The rewrite engine may be used in .htaccess files and in <Directory> sections, with some additional complexity.
 To enable the rewrite engine in this context, you need to set "RewriteEngine On" and "Options FollowSymLinks" must be enabled. If your administrator has disabled override of FollowSymLinks for a user's directory, then you cannot use the rewrite engine. This restriction is required for security reasons.

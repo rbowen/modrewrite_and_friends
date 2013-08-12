@@ -221,7 +221,7 @@ Flags
 `````
 
 .. index:: Flags
-.. index:: RewrteRule: Flags
+.. index:: RewriteRule: Flags
 
 Flags modify the behavior of the rule. You may have zero or more flags, and the effect is cumulative. Flags may be repeated where appropriate. For example, you may set several environment variables by using several ``[E]`` flags, or set several cookies with multiple ``[CO]`` flags. Flags are separated with commas:
 
@@ -522,8 +522,8 @@ NE - noescape
 '''''''''''''
 
 .. index:: NE flag
-.. index:: Rewrite flag!NE
-.. index:: Flag!NE
+.. index:: Rewrite flags!NE
+.. index:: Flags!NE
 
 By default, special characters, such as ``\&`` and ``?``, for example, will be converted to their hexcode equivalent. Using the ``[NE]`` flag prevents that from happening.
 
@@ -537,8 +537,8 @@ NS - nosubreq
 '''''''''''''
 
 .. index:: NS flag
-.. index:: Rewrite flag!NS
-.. index:: Flag!NS
+.. index:: Rewrite flags!NS
+.. index:: Flags!NS
 
 Use of the ``[NS]`` flag prevents the rule from being used on subrequests. For example, a page which is included using an SSI (Server Side Include) is a subrequest, and you may want to avoid rewrites happening on those subrequests. Also, when mod\_dir tries to find out information about possible directory default files (such as index.html files), this is an internal subrequest, and you often want to avoid rewrites on such subrequests. On subrequests, it is not always useful, and can even cause errors, if the complete set of rules are applied. Use this flag to exclude problematic rules.
 
@@ -550,8 +550,8 @@ P - proxy
 '''''''''
 
 .. index:: P flag
-.. index:: Rewrite flag!P
-.. index:: Flag!P
+.. index:: Rewrite flags!P
+.. index:: Flags!P
 
 Use of the ``[P]`` flag causes the request to be handled by mod\_proxy, and handled via a proxy request. For example, if you wanted all image requests to be handled by a back-end image server, you might do something like the following:
 
@@ -584,8 +584,8 @@ PT - passthrough
 ''''''''''''''''
 
 .. index:: PT flag
-.. index:: Rewrite flag!PT
-.. index:: Flag!PT
+.. index:: Rewrite flags!PT
+.. index:: Flags!PT
 
 The target (or substitution string) in a ``RewriteRule`` is assumed to be a file path, by default. The use of the ``[PT]`` flag causes it to be treated as a URI instead. That is to say, the use of the ``[PT]`` flag causes the result of the ``RewriteRule`` to be passed back through URL mapping, so that location-based mappings, such as ``Alias``, ``Redirect``, or ``ScriptAlias``, for example, might have a chance to take effect.
 
@@ -606,8 +606,8 @@ QSA - qsappend
 ''''''''''''''
 
 .. index:: QSA flag
-.. index:: Rewrite flag!QSA
-.. index:: Flag!QSA
+.. index:: Rewrite flags!QSA
+.. index:: Flags!QSA
 
 When the replacement URI contains a query string, the default behavior of RewriteRule is to discard the existing query string, and replace it with the newly generated one. Using the ``[QSA]`` flag causes the query strings to be combined.
 
@@ -623,8 +623,8 @@ QSD - qsdiscard
 '''''''''''''''
 
 .. index:: QSD flag
-.. index:: Rewrite flag!QSD
-.. index:: Flag!QSD
+.. index:: Rewrite flags!QSD
+.. index:: Flags!QSD
 
 When the requested URI contains a query string, and the target URI does not, the default behavior of ``RewriteRule`` is to copy that query string to the target URI. Using the ``[QSD]`` flag causes the query string to be discarded.
 
@@ -639,8 +639,8 @@ R - redirect
 ''''''''''''
 
 .. index:: R flag
-.. index:: Rewrite flag!R
-.. index:: Flag!R
+.. index:: Rewrite flags!R
+.. index:: Flags!R
 
 Use of the ``[R]`` flag causes a HTTP redirect to be issued to the browser. If a fully-qualified URL is specified (that is, including <http://servername/>) then a redirect will be issued to that location. Otherwise, the current protocol, servername, and port number will be used to generate the URL sent with the redirect.
 
@@ -654,8 +654,8 @@ S - skip
 ''''''''
 
 .. index:: S flag
-.. index:: Rewrite flag!S
-.. index:: Flag!S
+.. index:: Rewrite flags!S
+.. index:: Flags!S
 
 The ``[S]`` flag is used to skip rules that you don't want to run. The syntax of the skip flag is ``[S=N]``, where N signifies the number of rules to skip (provided the RewriteRule and any preceding RewriteCond directives match). This can be thought of as a goto statement in your rewrite ruleset. In the following example, we only want to run the RewriteRule if the requested URI doesn't correspond with an actual file.
 
@@ -698,8 +698,8 @@ T - type
 ''''''''
 
 .. index:: T flag
-.. index:: Rewrite flag!T
-.. index:: Flag!T
+.. index:: Rewrite flags!T
+.. index:: Flags!T
 
 Sets the MIME type with which the resulting response will be sent. This has the same effect as the ``AddType`` directive.
 

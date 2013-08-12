@@ -2,11 +2,11 @@ Regular Expressions
 ===================
 
 .. index:: Regular Expressions
+.. _Introduction to Regular Expressions:
 
 Introduction to Regular Expressions
 -----------------------------------
 
-.. _Introduction to Regular Expressions:
 
 Much of the content in this book requires that you have some mastery
 of regular expressions. Indeed, in my years of teaching mod_rewrite,
@@ -364,11 +364,12 @@ pattern matching. Think of it as combining several atoms into a single molecule.
 
 This will look for the sequence "abc" appearing one or more times, and so would match the string "abc" and the string "abcabc".
 
+.. index:: Backreferences
+.. _backreferences:
+
 Backreferences
 ``````````````
 
-.. _backreferences:
-.. index:: Backreferences
 
 Even more useful is the "capturing" functionality of the parentheses. Once a pattern has 
 matched, you often want to know what matched, so that you can use it later. This is usually 
@@ -391,7 +392,7 @@ Rather than providing additional syntax to disambiguate this term, the designer 
 mod\_rewrite instead chose to only provide backreferences through ``$9``.
 
 The exact way in which you can exploit this feature will be more obvious later, once we 
-start looking at the RewriteRule directive in `Chapter three, RewriteRules`_
+start looking at the RewriteRule directive in :ref:`RewriteRule`
 
 Consider these two patterns, applied to the string "canadian".
 
@@ -473,7 +474,7 @@ directory, but then negate the match, thus:
 
     !^/images
 
-This matches any path not starting with ``/images``. We'll see more of this kind of pattern match especially in Chapter `Proxying`_.
+This matches any path not starting with ``/images``. We'll see more of this kind of pattern match especially in the chapter :ref:`Proxying with mod_rewrite`.
 
 Regex examples
 --------------

@@ -155,6 +155,8 @@ We aim to help you do that at each step along this journey.
 RewriteOptions
 --------------
 
+.. _RewriteRule:
+
 RewriteRule
 -----------
 
@@ -188,7 +190,7 @@ In Directory and htaccess context, ``PATTERN`` will be matched against the files
 
 Subsequent ``RewriteRule`` patterns are matched against the output of the last matching ``RewriteRule``.
 
-It is assumed, at this point, that you've already read the chapter `Introduction to Regular Expressions`_, and/or are familiar with what a regular expression is, and how to craft one.
+It is assumed, at this point, that you've already read the chapter :ref:`Introduction to Regular Expressions`, and/or are familiar with what a regular expression is, and how to craft one.
 
 Target
 ``````
@@ -239,7 +241,7 @@ B - escape backreferences
 
 The `[B]` flag instructs `RewriteRule` to escape non-alphanumeric characters before applying the transformation.
 
-mod_rewrite has to unescape URLs before mapping them, so backreferences are unescaped at the time they are applied. Using the B flag, non-alphanumeric characters in backreferences will be escaped. (See `backreferences`_ for discussion of backreferences.) For example, consider the rule:
+mod_rewrite has to unescape URLs before mapping them, so backreferences are unescaped at the time they are applied. Using the B flag, non-alphanumeric characters in backreferences will be escaped. (See :ref:`backreferences` for discussion of backreferences.) For example, consider the rule:
 
 ::
 
@@ -354,7 +356,7 @@ The full syntax for this flag is:
     [E=VAR:VAL] 
     [E=!VAR]
 
-VAL may contain backreferences (See section `backreferences`_) (``$N`` or ``%N``) which will be expanded.
+VAL may contain backreferences (See section :ref:`backreferences`) (``$N`` or ``%N``) which will be expanded.
 
 Using the short form
 
@@ -865,6 +867,11 @@ dbd
 \label{rewritemap_dbd}
 \index{RewriteMap!dbd}
 
+.. _Proxying with mod_rewrite:
+
+Proxying with mod_rewrite
+-------------------------
+
 mod_rewrite logging and debugging
 ---------------------------------
 
@@ -894,7 +901,6 @@ TODO: Discussion of why you can't use rewrite logging in .htaccess files.
 
 Debugging rewrite rules
 ```````````````````````
-
 
 Rewrite Examples
 ----------------

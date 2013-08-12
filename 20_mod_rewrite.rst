@@ -665,49 +665,53 @@ The ``[S]`` flag is used to skip rules that you don't want to run. The syntax of
     RewriteRule (.*\.gif) images.php?$1
     RewriteRule (.*\.html) docs.php?$1
 
-This technique is useful because a \verb~RewriteCond~ only applies to the \verb~RewriteRule~ immediately following it. Thus, if you want to make a \verb~RewriteCond~ apply to several \verb~RewriteRule~s, one possible technique is to negate those conditions and add a \verb~RewriteRule~ with a \verb~[Skip]~ flag. You can use this to make pseudo if-then-else constructs: The last rule of the then-clause becomes skip=N, where N is the number of rules in the else-clause:
+This technique is useful because a ``RewriteCond`` only applies to the ``RewriteRule`` immediately following it. Thus, if you want to make a ``RewriteCond`` apply to several ``RewriteRule``s, one possible technique is to negate those conditions and add a ``RewriteRule`` with a ``[Skip]`` flag. You can use this to make pseudo if-then-else constructs: The last rule of the then-clause becomes skip=N, where N is the number of rules in the else-clause:
 
-\begin{verbatim}
-# Does the file exist?
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-# Create an if-then-else construct by skipping 3 lines if we meant to go to the "else" stanza.
-RewriteRule .? - [S=3]
+::
 
-# IF the file exists, then:
-    RewriteRule (.*\.gif) images.php?$1
-    RewriteRule (.*\.html) docs.php?$1
-    # Skip past the "else" stanza.
-    RewriteRule .? - [S=1]
-# ELSE...
-    RewriteRule (.*) 404.php?file=$1
-# END
-\end{verbatim}
+    # Does the file exist?
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 
-It is probably easier to accomplish this kind of configuration using the \verb~<If>~, \verb~<ElseIf>~, and \verb~<Else>~ directives instead. (See \ref{if}.)
+    # Create an if-then-else construct by skipping 3 lines if we meant to go to the "else" stanza.
+    RewriteRule .? - [S=3]
 
-\subsection{T - type}
-\label{tflag}
-\index{T flag}
-\index{Rewrite flag!T}
+    # IF the file exists, then:
+        RewriteRule (.*\.gif) images.php?$1
+        RewriteRule (.*\.html) docs.php?$1
+        # Skip past the "else" stanza.
+        RewriteRule .? - [S=1]
+    # ELSE...
+        RewriteRule (.*) 404.php?file=$1
+    # END
 
-Sets the MIME type with which the resulting response will be sent. This has the same effect as the \verb~AddType~ directive.
+
+It is probably easier to accomplish this kind of configuration using the ``<If>``, ``<ElseIf>``, and ``<Else>`` directives instead. (2.4 and later -  See \ref{if}.)
+
+T - type
+''''''''
+
+.. index:: T flag
+.. index:: Rewrite flag!T
+.. index:: Flag!T
+
+Sets the MIME type with which the resulting response will be sent. This has the same effect as the ``AddType`` directive.
 
 For example, you might use the following technique to serve Perl source code as plain text, if requested in a particular way:
 
-\begin{verbatim}
-# Serve .pl files as plain text
-RewriteRule \.pl$ - [T=text/plain]
-\end{verbatim}
+::
+
+    # Serve .pl files as plain text
+    RewriteRule \.pl$ - [T=text/plain]
 
 Or, perhaps, if you have a camera that produces jpeg images without file extensions, you could force those images to be served with the correct MIME type by virtue of their file names:
 
-\begin{verbatim}
-# Files with 'IMG' in the name are jpg images.
-RewriteRule IMG - [T=image/jpg]
-\end{verbatim}
+::
 
-Please note that this is a trivial example, and could be better done using \verb~<FilesMatch>~ instead. Always consider the alternate solutions to a problem before resorting to rewrite, which will invariably be a less efficient solution than the alternatives.
+    # Files with 'IMG' in the name are jpg images.
+    RewriteRule IMG - [T=image/jpg]
+
+Please note that this is a trivial example, and could be better done using ``<FilesMatch>`` instead. Always consider the alternate solutions to a problem before resorting to rewrite, which will invariably be a less efficient solution than the alternatives.
 
 If used in per-directory context, use only - (dash) as the substitution for the entire round of mod_rewrite processing, otherwise the MIME-type set with this flag is lost due to an internal re-processing (including subsequent rounds of mod_rewrite processing). The L flag can be useful in this context to end the current round of mod_rewrite processing.
 
@@ -718,16 +722,16 @@ To enable the rewrite engine in this context, you need to set "RewriteEngine On"
 
 When using the rewrite engine in .htaccess files the per-directory prefix (which always is the same for a specific directory) is automatically removed for the RewriteRule pattern matching and automatically added after any relative (not starting with a slash or protocol name) substitution encounters the end of a rule set. See the RewriteBase directive for more information regarding what prefix will be added back to relative substitutions.
 
-If you wish to match against the full URL-path in a per-directory (htaccess) RewriteRule, use the \verb~%{REQUEST_URI}~ variable in a RewriteCond.
+If you wish to match against the full URL-path in a per-directory (htaccess) RewriteRule, use the ``%{REQUEST_URI}`` variable in a ``RewriteCond``.
 
-The removed prefix always ends with a slash, meaning the matching occurs against a string which never has a leading slash. Therefore, a Pattern containing \verb~^/~ never matches in per-directory context.
+The removed prefix always ends with a slash, meaning the matching occurs against a string which never has a leading slash. Therefore, a Pattern containing ``^/`` never matches in per-directory context.
 
-Although rewrite rules are syntactically permitted in \verb~<Location>~ and \verb~<Files>~ sections, this should never be necessary and is unsupported.
+Although rewrite rules are syntactically permitted in ``<Location>`` and ``<Files>`` sections, this should never be necessary and is unsupported.
 
 The Query String
 ----------------
 
-Many scenarios that come up on the support channels call for modifying a request based on the query string (the bit of a URL following a ?). This is not something \verb~RewriteRule~ can do, and requires the services of the \verb~RewriteCond~ directive. See Chapter \ref{rewritecond}.
+Many scenarios that come up on the support channels call for modifying a request based on the query string (the bit of a URL following a ?). This is not something ``RewriteRule`` can do, and requires the services of the ``RewriteCond`` directive. See Chapter \ref{rewritecond}.
 
 RewriteBase
 -----------
@@ -739,7 +743,7 @@ RewriteCond
 
 .. index:: RewriteCond
 
-The \verb~RewriteCond~ directive attaches additional conditions on a \verb~RewriteRule~, and may also set backreferences that may be used in the rewrite target.
+The ``RewriteCond`` directive attaches additional conditions on a ``RewriteRule``, and may also set backreferences that may be used in the rewrite target.
 
 
 RewriteMap
@@ -747,18 +751,18 @@ RewriteMap
 
 .. index:: RewriteMap
 
-The \verb~RewriteMap~ directive gives you a way to call external mapping routines to simplify your \verb~RewriteRule~s. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a \verb~RewriteMap~ in a \verb~RewriteRule~ or \verb~RewriteCond~.
+The ``RewriteMap`` directive gives you a way to call external mapping routines to simplify your ``RewriteRule``s. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a ``RewriteMap`` in a ``RewriteRule`` or ``RewriteCond``.
 
 Creating a RewriteMap
 `````````````````````
 
-The \verb~RewriteMap~ directive creates an alias which you can then invoke in either a \verb~RewriteRule~ or \verb~RewriteCond~ directive. You can think of it as defining a function that you can call later on.
+The ``RewriteMap`` directive creates an alias which you can then invoke in either a ``RewriteRule`` or ``RewriteCond`` directive. You can think of it as defining a function that you can call later on.
 
-The syntax of the \verb~RewriteMap~ directive is as follows:
+The syntax of the ``RewriteMap`` directive is as follows:
 
-\begin{verbatim}
-RewriteMap MapName MapType:MapSource
-\end{verbatim}
+::
+
+    RewriteMap MapName MapType:MapSource
 
 \textbf{MapName}: The name of the 'function' that you're creating
 
@@ -766,61 +770,66 @@ RewriteMap MapName MapType:MapSource
 
 \textbf{MapSource}: The location from which the map definition will be obtained, such as a file, database query, or predefined function.
 
-The \verb~RewriteMap~ directive must be used either in virtualhost context, or in global server context. This is because a \verb~RewriteMap~ is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a \verb~.htaccess~ file.
+The ``RewriteMap`` directive must be used either in virtualhost context, or in global server context. This is because a ``RewriteMap`` is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a ``.htaccess`` file.
 
 Using a RewriteMap
 ``````````````````
 
-Once you have defined a \verb~RewriteMap~, you can then use it in a \verb~RewriteRule~ or \verb~RewriteCond~ as follows:
+Once you have defined a ``RewriteMap``, you can then use it in a ``RewriteRule`` or ``RewriteCond`` as follows:
 
-\begin{verbatim}
-RewriteMap examplemap txt:/path/to/file/map.txt
-RewriteRule ^/ex/(.*) ${examplemap:$1}
-\end{verbatim}
+::
 
-Note in this example that the \verb~RewriteMap~, named 'examplemap', is passed an argument, \verb~$1~, which is captured by the \verb~RewriteRule~ pattern. It can also be passed an argument of another known variable. For example, if you wanted to invoke the \verb~examplemap~ map on the entire requested URI, you could use the variable \verb~ %{REQUEST_URI}~ rather than \verb~$1~ in your invocation:
+    RewriteMap examplemap txt:/path/to/file/map.txt
+    RewriteRule ^/ex/(.*) ${examplemap:$1}
 
-\begin{verbatim}
-RewriteRule ^ ${examplemap:%{REQUEST_URI}}
-\end{verbatim}
+Note in this example that the ``RewriteMap``, named 'examplemap', is passed an argument, ``$1``, which is captured by the ``RewriteRule`` pattern. It can also be passed an argument of another known variable. For example, if you wanted to invoke the ``examplemap`` map on the entire requested URI, you could use the variable ``%{REQUEST_URI}`` rather than ``$1`` in your invocation:
+
+::
+
+    RewriteRule ^ ${examplemap:%{REQUEST_URI}}
 
 TODO: DEFAULT RESULT
 
 RewriteMap Types
 ````````````````
 
-There are a number of different map types which may be used in a \verb~RewriteMap~.
+There are a number of different map types which may be used in a ``RewriteMap``.
 
 int
 '''
 
 \label{rewritemap_int}
-\index{RewriteMap!int}
+.. index:: RewriteMap!int
 
-An \verb~int~ map type is an internal function, pre-defined by \verb~mod_rewrite~ itself. There are four such functions:
+An ``int`` map type is an internal function, pre-defined by ``mod_rewrite`` itself. There are four such functions:
 
-\subsubsection{toupper}
+toupper
+"""""""
 
-The \verb~toupper~ internal function converts the provided argument text to all upper case characters.
+The ``toupper`` internal function converts the provided argument text to all upper case characters.
 
-\begin{verbatim}
-# Convert any lower-case request to upper case and redirect
-RewriteMap uc int:toupper
-RewriteRule (.*?[a-z]+.*) ${uc:$1} [R=301]
-\end{verbatim}
+::
 
-\subsubsection{tolower}
+    # Convert any lower-case request to upper case and redirect
+    RewriteMap uc int:toupper
+    RewriteRule (.*?[a-z]+.*) ${uc:$1} [R=301]
 
-The \verb~tolower~ is the opposite of \verb~toupper~, converting any argument text to lower case characters.
+tolower
+"""""""
 
-\begin{verbatim}
-# Convert any upper-case request to lower case and redirect
-RewriteMap lc int:tolower
-RewriteRule (.*?[A-Z]+.*) ${lc:$1} [R=301]
-\end{verbatim}
+The ``tolower`` is the opposite of ``toupper``, converting any argument text to lower case characters.
 
-\subsubsection{escape}
-\subsubsection{unescape}
+::
+
+    # Convert any upper-case request to lower case and redirect
+    RewriteMap lc int:tolower
+    RewriteRule (.*?[A-Z]+.*) ${lc:$1} [R=301]
+
+escape
+""""""
+
+unescape
+""""""""
 
 txt
 '''
@@ -828,7 +837,7 @@ txt
 \label{rewritemap_txt}
 \index{RewriteMap!txt}
 
-A \verb~txt~ map defines a one-to-one mapping from argument to target.
+A ``txt`` map defines a one-to-one mapping from argument to target.
 
 rnd
 '''
@@ -836,7 +845,7 @@ rnd
 \label{rewritemap_rnd}
 \index{RewriteMap!rnd}
 
-A \verb~rnd~ map will randomly select one value from the specified text file.
+A ``rnd`` map will randomly select one value from the specified text file.
 
 dbm
 '''

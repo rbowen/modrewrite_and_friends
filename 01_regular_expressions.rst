@@ -714,8 +714,7 @@ almost every program.
 Regex Coach
 ```````````
 
-\index{Regex Coach}
-\label{regexcoach}
+.. index:: Regex Coach
 
 Regex Coach is available for Windows and Linux, 
 and can be downloaded from <http://www.weitz.de/regex-coach>. 
@@ -730,8 +729,7 @@ Regex Coach is free, but it is not Open Source.
 Reggy
 `````
 
-\index{Reggy}
-\label{reggy}
+.. index:: Reggy
 
 Reggy is a Mac OS X application that provides a simple interface for
 crafting and testing regular expressions. It will identify what parts of
@@ -745,8 +743,7 @@ TODO SCREENSHOT
 pcretest
 ````````
 
-\index{pcretest}
-\label{pcretest}
+.. index:: pcretest
 
 pcretest is a command-line regular expression tester that is available
 on most distributions of Linux, where it is usually installed by
@@ -762,8 +759,7 @@ will be set to once the regular expression has been evaluated.
 Visual Regexp
 `````````````
 
-\index{Visual Regexp}
-\label{visualregexp}
+.. index:: Visual Regexp
 
 Visual Regexp, available at <http://laurent.riesterer.free.fr/regexp/>, has more features
 than the options listed above, and might be a good option once you have
@@ -777,7 +773,7 @@ script. TODO SCREENSHOT
 Regular Expression Tester
 `````````````````````````
 
-\index{Regular Expression Tester}
+.. index:: Regular Expression Tester
 
 Rather than being a stand-alone application like the others listed
 above, this is a Firefox plugin. It's available at
@@ -787,7 +783,7 @@ course, requires Firefox to work.
 Online tools
 ````````````
 
-\index{Online regex testers}
+.. index:: Online regex testers
 
 In addition to these tools, there are many online tools, which you can
 use without having to download or install anything. These are of a wide
@@ -800,7 +796,7 @@ worth mentioning at the time of writing:
 RegExr
 ``````
 
-\index{RegExr}
+.. index:: RegExr
 
 <http://gskinner.com/RegExr/> - Includes a variety of pre-defined
 character classes, and the ability to save your regular expressions for
@@ -809,7 +805,7 @@ later reference. Requires Javascript to use.
 Regex Pal
 `````````
 
-\index{Regex Pal}
+.. index:: Regex Pal
 
 
 

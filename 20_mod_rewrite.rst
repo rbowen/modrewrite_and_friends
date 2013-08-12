@@ -423,10 +423,12 @@ This example uses the "-" syntax for the rewrite target, which means that the re
 
 When using ``[F]``, an ``[L]`` is implied - that is, the response is returned immediately, and no further rules are evaluated.
 
-\subsection{G - gone}
-\label{gflag}
-\index{G flag}
-\index{Rewrite flags!G}
+G - gone
+''''''''
+
+.. index:: G flag
+.. index:: Rewrite flags!G
+.. index:: Flags!G
 
 The ``[G]`` flag forces the server to return a 410 Gone status with the response. This indicates that a resource used to be available, but is no longer available.
 
@@ -438,10 +440,12 @@ As with the ``[F]`` flag, you will typically use the "-" syntax for the rewrite 
 
 When using ``[G]``, an ``[L]`` is implied - that is, the response is returned immediately, and no further rules are evaluated.
 
-\subsection{H - handler}
-\label{hflag}
-\index{H flag}
-\index{Rewrite flags!H}
+H - handler
+'''''''''''
+
+.. index:: H flag
+.. index:: Rewrite flags!H
+.. index:: Flags!H
 
 Forces the resulting request to be handled with the specified handler. For example, one might use this to force all files without a file extension to be parsed by the php handler:
 
@@ -836,36 +840,31 @@ unescape
 txt
 '''
 
-\label{rewritemap_txt}
-\index{RewriteMap!txt}
+.. index:: RewriteMap!txt
 
 A ``txt`` map defines a one-to-one mapping from argument to target.
 
 rnd
 '''
 
-\label{rewritemap_rnd}
-\index{RewriteMap!rnd}
+.. index:: RewriteMap!rnd
 
 A ``rnd`` map will randomly select one value from the specified text file.
 
 dbm
 '''
 
-\label{rewritemap_dbm}
-\index{RewriteMap!dbm}
+.. index:: RewriteMap!dbm
 
 prg
 '''
 
-\label{rewritemap_prg}
-\index{RewriteMap!prg}
+.. index:: RewriteMap!prg
 
 dbd
 '''
 
-\label{rewritemap_dbd}
-\index{RewriteMap!dbd}
+.. index:: RewriteMap!dbd
 
 .. _Proxying with mod_rewrite:
 

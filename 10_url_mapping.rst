@@ -11,7 +11,7 @@ When the Apache http server receives a request, it is processed in a
 variety of ways to see what resource it represents. This process is
 called URL Mapping. 
 
-mod\_rewrite is part of this process, but will be handled separately,
+mod_rewrite is part of this process, but will be handled separately,
 since it is a large portion of the contents of this book.
 
 The exact order in which these steps are applied may vary from one
@@ -21,11 +21,12 @@ steps, but the way in which you have configured your particular server.
 mod_rewrite
 -----------
 
-mod\_rewrite is perhaps the most powerful part of this process. That
+mod_rewrite is perhaps the most powerful part of this process. That
 is, of course, why it features prominently in the name of this book.
-Indeed, mod\_rewrite spans several chapters of this book, and has a Part all its own, Part \ref{partrewrite}.
+Indeed, mod_rewrite spans several chapters of this book, and has 
+an entire Part all its own, :ref:`part mod_rewrite`.
 
-For now, we'll just say that mod\_rewrite fills a variety of
+For now, we'll just say that mod_rewrite fills a variety of
 different roles in the URL mapping process. It can, among other things,
 modify a URL once it is received, in many different ways.
 

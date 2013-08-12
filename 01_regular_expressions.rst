@@ -389,7 +389,7 @@ than one set of parentheses, the second one will be captured to the variable ``$
 and so on. Only values up through ``$9`` are available, however.  The reason for this is that ``$10`` 
 would be ambiguous. It might mean ``$1``, followed by a literal zero (0), or it might mean ``$10``.  
 Rather than providing additional syntax to disambiguate this term, the designer of 
-mod\_rewrite instead chose to only provide backreferences through ``$9``.
+mod_rewrite instead chose to only provide backreferences through ``$9``.
 
 The exact way in which you can exploit this feature will be more obvious later, once we 
 start looking at the RewriteRule directive in :ref:`RewriteRule`
@@ -608,7 +608,7 @@ doing.
 Matching URIs
 `````````````
 
-Finally, since this is, after all, a book about mod\_rewrite, it seems reasonable to give 
+Finally, since this is, after all, a book about mod_rewrite, it seems reasonable to give 
 some examples of matching URIs, as that is what you will primarily be doing for the rest of 
 the book.
 
@@ -828,7 +828,7 @@ Summary
 -------
 
 Having a good grasp of Regular Expressions is a necessary prerequisite to working with 
-mod\_rewrite. All too often, people try to build regular expressions by the brute-force method, 
+mod_rewrite. All too often, people try to build regular expressions by the brute-force method, 
 trying various different combinations at random until something seems to mostly work. This 
 results in expressions that are inefficient and fragile, as well as a great waste of time, and 
 much frustration.

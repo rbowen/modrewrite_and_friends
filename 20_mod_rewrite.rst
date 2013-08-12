@@ -1,3 +1,5 @@
+.. _part mod_rewrite:
+
 mod_rewrite
 ===========
 
@@ -775,6 +777,8 @@ The syntax of the ``RewriteMap`` directive is as follows:
 ::
 
     RewriteMap MapName MapType:MapSource
+
+Where the various parts of that syntax are defined as:
 
 MapName
     The name of the 'function' that you're creating

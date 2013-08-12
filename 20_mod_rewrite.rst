@@ -740,23 +740,28 @@ The Query String
 
 Many scenarios that come up on the support channels call for modifying a request based on the query string (the bit of a URL following a ?). This is not something ``RewriteRule`` can do, and requires the services of the ``RewriteCond`` directive. See Chapter \ref{rewritecond}.
 
+.. index:: RewriteBase
+.. _RewriteBase:
+
 RewriteBase
 -----------
 
-.. index:: RewriteBase
+
+.. _RewriteCond:
+.. index:: RewriteCond
 
 RewriteCond
 -----------
 
-.. index:: RewriteCond
-
 The ``RewriteCond`` directive attaches additional conditions on a ``RewriteRule``, and may also set backreferences that may be used in the rewrite target.
 
+TODO
+
+.. index:: RewriteMap
+.. _RewriteMap:
 
 RewriteMap
 ----------
-
-.. index:: RewriteMap
 
 The ``RewriteMap`` directive gives you a way to call external mapping routines to simplify your ``RewriteRule``s. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a ``RewriteMap`` in a ``RewriteRule`` or ``RewriteCond``.
 
@@ -771,13 +776,18 @@ The syntax of the ``RewriteMap`` directive is as follows:
 
     RewriteMap MapName MapType:MapSource
 
-\textbf{MapName}: The name of the 'function' that you're creating
+MapName
+    The name of the 'function' that you're creating
 
-\textbf{MapType}: The type of the map. The various available map types are discussed below.
+MapType
+    The type of the map. The various available map types are discussed below.
 
-\textbf{MapSource}: The location from which the map definition will be obtained, such as a file, database query, or predefined function.
+MapSource
+    The location from which the map definition will be obtained, such as a file, database query, or predefined function.
 
 The ``RewriteMap`` directive must be used either in virtualhost context, or in global server context. This is because a ``RewriteMap`` is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a ``.htaccess`` file.
+
+TODO Example
 
 Using a RewriteMap
 ``````````````````

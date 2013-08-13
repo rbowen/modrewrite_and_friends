@@ -22,6 +22,8 @@ TODO
 * Verify all desired formats (pdf, html, epub)
 * Automated publishing tools
 
+.. todolist::
+
 REVISION HISTORY
 ````````````````
 

@@ -717,7 +717,7 @@ Regex Coach allows you to step through a regular expression and watch
 what it does and does not match. This can be extremely instructive in
 learning to write your own regular expressions.
 
-TODO SCREENSHOT
+.. todO:: SCREENSHOT
 
 Regex Coach is free, but it is not Open Source.
 
@@ -733,7 +733,7 @@ a string are matched by your regular expression.
 Reggy is available at <http://code.google.com/p/reggy/> and is
 licensed under the GPL.
 
-TODO SCREENSHOT
+.. todo:: SCREENSHOT
 
 pcretest
 ````````
@@ -748,8 +748,10 @@ In addition to simply telling you whether a particular string matched or
 not, it will also tell you what each of the various backreferences will
 be set to.
 
-In TODO SCREENSHOT you can see what each of the various backreferences
+In the SCREENSHOT you can see what each of the various backreferences
 will be set to once the regular expression has been evaluated.
+
+.. todo: Screen shot
 
 Visual Regexp
 `````````````
@@ -763,7 +765,9 @@ something a little more sophisticated. It shows backreferences, and
 offers a wide variety of suggestions to help build a regex.
 
 Visual Regexp is available as a Windows executable or as a Tcl/Tk
-script. TODO SCREENSHOT
+script. 
+
+.. todo:: SCREENSHOT
 
 Regular Expression Tester
 `````````````````````````

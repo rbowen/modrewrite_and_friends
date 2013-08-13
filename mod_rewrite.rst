@@ -168,7 +168,7 @@ We aim to help you do that at each step along this journey.
 RewriteOptions
 --------------
 
-.. TODO Write this section
+.. todo:: Write this section
 
 .. index:: RewriteRule
 .. _RewriteRule:
@@ -791,32 +791,32 @@ These definitions will be expanded in the sections below.
 TestString
 ``````````
 
-.. TODO
+.. todo::
 
 CondPattern
 ```````````
 
-.. TODO
+.. todo::
 
 Flag
 ````
 
-.. TODO
+.. todo::
 
 Examples
 ````````
 
-.. TODO
+.. todo::
 
 Query Strings
 '''''''''''''
 
-.. TODO
+.. todo::
 
 Files and Directories
 '''''''''''''''''''''
 
-.. TODO
+.. todo::
 
 .. index:: RewriteMap
 .. _RewriteMap:
@@ -850,7 +850,7 @@ MapSource
 
 The ``RewriteMap`` directive must be used either in virtualhost context, or in global server context. This is because a ``RewriteMap`` is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a ``.htaccess`` file.
 
-.. TODO Example
+.. todO:: Example
 
 Using a RewriteMap
 ``````````````````
@@ -868,7 +868,7 @@ Note in this example that the ``RewriteMap``, named 'examplemap', is passed an a
 
     RewriteRule ^ ${examplemap:%{REQUEST_URI}}
 
-.. TODO: DEFAULT RESULT
+.. todo:: DEFAULT RESULT
 
 RewriteMap Types
 ````````````````
@@ -965,12 +965,12 @@ If you're not sure what version you're running, you can get the ``httpd`` binary
 2.2 and earlier
 '''''''''''''''
 
-.. TODO: Discussion of why you can't use RewriteLog in .htaccess files
+.. todo:: Discussion of why you can't use RewriteLog in .htaccess files
 
 2.4 and later
 '''''''''''''
 
-.. TODO: Discussion of why you can't use rewrite logging in .htaccess files.
+.. todo:: Discussion of why you can't use rewrite logging in .htaccess files.
 
 Debugging rewrite rules
 ```````````````````````

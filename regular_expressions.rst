@@ -689,6 +689,7 @@ This, too, is a very common need. For example, we want to match everything that 
 file. The following regex will do that, for the most common image types:
 
 ::
+
     \.(jpg|gif|png)$
 
 Later on, you'll see how to make this case insensitive, so that files with upper-case file 

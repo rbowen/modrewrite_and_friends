@@ -46,14 +46,14 @@ referring to it until you become familiar with these characters. The `Regular ex
 translating a line of seemingly random characters into a meaningful pattern. The table will be 
 followed by further explanations and examples for each of the items in the table.
 
-.. _Regular expression vocabulary table:
 .. index:: Regular expression vocabulary
 .. index:: Table - Regular expression vocabulary
+.. _Regular expression vocabulary table:
 
 ==========  =======
  Character  Meaning
 ----------  -------
-.           Any character\
+.           Any character
 \\          Escapes a character that has a special meaning. Thus, \\.  means a literal . character. You can match a literal \\ character by using \\\\. Additionally, placing \\ in front of a regular character can add a special meaning to that character. For example, \\t means a tab character.
 ^           An anchor which insists that the pattern start at the beginning of the string. ^A means that the string must start with A.
 $           An anchor which insists that the string ends with the specified pattern. X$ means that the string must end with X.
@@ -151,8 +151,8 @@ Character  Meaning
 \\S        Match any character NOT whitespace (space, tab).
 \\w        Match any character in the range 0 - 9, A - Z and a - z
 \\W        Match any character NOT the range 0 - 9, A - Z and a - z
-\\b        Word boundary. Match any character(s) at the beginning (``\babc``) and/or end (``abc\b``) of a word, thus ``\bcow\b`` will find cow but not cows, but ``\bcow`` will find cows.
-\\B        Not a word boundary. Match any character(s) NOT at the beginning(``\Babc``) and/or end (``cow\B``) of a word, thus ``\Bcow\B`` will find scows but not cows, but ``cow\B`` will find coward.
+\\b        Word boundary. Match any character(s) at the beginning (``\babc``) and/or end (``abc\b``) of a word, thus ``\bcow\b`` will match cow but not cows, but ``\bcow`` will match cows.
+\\B        Not a word boundary. Match any character(s) NOT at the beginning(``\Babc``) and/or end (``cow\B``) of a word, thus ``\Bcow\B`` will match scows but not cows, but ``cow\B`` will match coward.
 \\t        Match a tab character
 \\n        Match a newline character
 \\x        Matches a character with a particular hex code. For example, ``\x5A`` would match a Z, which has a hex code of 5A.

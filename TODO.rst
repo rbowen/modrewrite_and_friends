@@ -9,7 +9,7 @@ This book is a work in progress, and I expect it to remain such for years to com
 While the version number starts with 0.something, you can expect that there's quite a bit of work yet to do. Once it is 1.something, you can expect that changes will be fairly minor. I think. We'll see.
 
 TODO
-----
+````
 
 * Standardize how we display example
 * Write mod_rewrite chapter(s)
@@ -23,7 +23,7 @@ TODO
 * Automated publishing tools
 
 REVISION HISTORY
-----------------
+````````````````
 
 
 * 0.00 Started March 7, 2013. Started TOC and a little of the initial text. Published HTML version to website at http://rewrite.rcbowen.com/
@@ -32,5 +32,6 @@ REVISION HISTORY
 * 0.03 March 18, 2013. Added a bunch about flags. Completed reorg of TOC. I hope.
 * ...
 * 0.12 April 16, 2013. Started RewriteMap stuff, and various other tweaks and fixes.
-* 0.15 August 10, 2013. Attended Flock. Decided to convert all LaTeX to rst instead. Many benefits, but quite a bit of work. Should have a rebuild in the next few days.
+* 0.15 August 10, 2013. Attended Flock. Decided to convert all LaTeX to rST instead. Many benefits, but quite a bit of work. Should have a rebuild in the next few days.
+* 0.20 August 12, 2013. Completed conversion from LaTeX to rST. I'm sure there's still some orts here and there, but it's good enough to tag.
 

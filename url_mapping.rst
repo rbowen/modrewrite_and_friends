@@ -51,6 +51,8 @@ Consider a configuration of the following:
 
 With that setting in place, a request for <http://example.com/one/two/three.html> will result in the file `/var/www/html/one/two/three.html` being served to the client with a MIME type derived from the file name - in this case, `text/html`.
 
+.. _directoryindex:
+
 The `DirectoryIndex` directive specifies what file, or files, will be served in the event that a directory is requested. For example, if you have the configuration:
 
 ::
@@ -62,14 +64,15 @@ Then when the URL <http://example.com/one/two/> is requested, Apache httpd will 
 
 If neither of those files is available, the next thing it will try to do is serve a directory index.
 
-Directory index
----------------
-
 .. index:: Directory index
 .. index:: Autoindex
 .. index:: mod_autoindex
+.. _autoindex:
 
-The module `mod_autoindex` serves a file listing for any directory that doesn't contain a `DirectoryIndex` file.
+Automatic directory listings
+----------------------------
+
+The module `mod_autoindex` serves a file listing for any directory that doesn't contain a `DirectoryIndex` file. (See :ref:`DirectoryIndex <directoryindex>`.)
 
 To permit directory listings, you must enable the `Indexes` setting of the `Options` directive:
 

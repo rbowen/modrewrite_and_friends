@@ -162,8 +162,8 @@ RewriteOptions
 
 TODO Write this section
 
-.. _RewriteRule:
 .. index:: RewriteRule
+.. _RewriteRule:
 
 RewriteRule
 -----------

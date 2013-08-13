@@ -108,12 +108,20 @@ A typical configuration to permit the use of .htaccess files looks like:
     DocumentRoot /var/www/html
     <Directory /var/www/html>
         AllowOverride All
+        Options +FollowSymLinks
     </Directory /var/www/html>
 
 That is to say, .htaccess files are disallowed for the entire filesystem, 
 starting at the root, but then are permitted in the document directories.
 This prevents httpd [#]_ from looking for .htaccess files in ``/``, ``/var``, 
 and ``/var/www`` on the way to looking in ``/var/www/html``.
+
+Note that in order to enable the use of mod_rewrite directives in
+``.htaccess`` files, you also need to enable ``Options FollowSymLinks``.
+A ``RewriteRule`` may be thought of as
+a kind of symlink, because it allows you to serve content from other
+directories via a rewrite. Thus, for reasons of security, it is
+necessary to enable symlinks in order to use mod_rewrite.
 
 Ok, so, what's the deal with mod_rewrite in .htaccess files?
 `````````````````````````````````````````````````````````````
@@ -160,7 +168,7 @@ We aim to help you do that at each step along this journey.
 RewriteOptions
 --------------
 
-TODO Write this section
+.. TODO Write this section
 
 .. index:: RewriteRule
 .. _RewriteRule:
@@ -738,25 +746,6 @@ Please note that this is a trivial example, and could be better done using ``<Fi
 
 If used in per-directory context, use only - (dash) as the substitution for the entire round of mod_rewrite processing, otherwise the MIME-type set with this flag is lost due to an internal re-processing (including subsequent rounds of mod_rewrite processing). The L flag can be useful in this context to end the current round of mod_rewrite processing.
 
-Per-directory rewrites
-----------------------
-
-The rewrite engine may be used in .htaccess files and in <Directory> sections, with some additional complexity.
-To enable the rewrite engine in this context, you need to set "RewriteEngine On" and "Options FollowSymLinks" must be enabled. If your administrator has disabled override of FollowSymLinks for a user's directory, then you cannot use the rewrite engine. This restriction is required for security reasons.
-
-When using the rewrite engine in .htaccess files the per-directory prefix (which always is the same for a specific directory) is automatically removed for the RewriteRule pattern matching and automatically added after any relative (not starting with a slash or protocol name) substitution encounters the end of a rule set. See the RewriteBase directive for more information regarding what prefix will be added back to relative substitutions.
-
-If you wish to match against the full URL-path in a per-directory (htaccess) RewriteRule, use the ``%{REQUEST_URI}`` variable in a ``RewriteCond``.
-
-The removed prefix always ends with a slash, meaning the matching occurs against a string which never has a leading slash. Therefore, a Pattern containing ``^/`` never matches in per-directory context.
-
-Although rewrite rules are syntactically permitted in ``<Location>`` and ``<Files>`` sections, this should never be necessary and is unsupported.
-
-The Query String
-----------------
-
-Many scenarios that come up on the support channels call for modifying a request based on the query string (the bit of a URL following a ?). This is not something ``RewriteRule`` can do, and requires the services of the ``RewriteCond`` directive. See Chapter \ref{rewritecond}.
-
 .. index:: RewriteBase
 .. _RewriteBase:
 
@@ -772,7 +761,60 @@ RewriteCond
 
 The ``RewriteCond`` directive attaches additional conditions on a ``RewriteRule``, and may also set backreferences that may be used in the rewrite target.
 
-TODO
+One or more ``RewriteCond`` directives may precede a ``RewriteRule``
+directive. That ``RewriteRule`` is then applied only if the current
+state of the URI matches its pattern, and all of these conditions are
+met.
+
+The ``RewriteCond`` directive has the following syntax:
+
+::
+
+    RewriteCond TestString  CondPattern [Flag]
+
+The arguments have the following meaning:
+
+TestString
+    Any string or variable to be tested for a match.
+
+CondPattern
+    A regular expression or other other expression to be compared
+    against the TestString.
+
+Flag
+    One or more flags which modify the behavior of the condition.
+
+These definitions will be expanded in the sections below.
+
+TestString
+``````````
+
+.. TODO
+
+CondPattern
+```````````
+
+.. TODO
+
+Flag
+````
+
+.. TODO
+
+Examples
+````````
+
+.. TODO
+
+Query Strings
+'''''''''''''
+
+.. TODO
+
+Files and Directories
+'''''''''''''''''''''
+
+.. TODO
 
 .. index:: RewriteMap
 .. _RewriteMap:
@@ -780,7 +822,7 @@ TODO
 RewriteMap
 ----------
 
-The ``RewriteMap`` directive gives you a way to call external mapping routines to simplify your ``RewriteRule``s. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a ``RewriteMap`` in a ``RewriteRule`` or ``RewriteCond``.
+The ``RewriteMap`` directive gives you a way to call external mapping routines to simplify a ``RewriteRule``. This external mapping can be a flat text file containing one-to-one mappings, or a database, or a script that produces mapping rules, or a variety of other similar things. In this chapter we'll discuss how to use a ``RewriteMap`` in a ``RewriteRule`` or ``RewriteCond``.
 
 Creating a RewriteMap
 `````````````````````
@@ -806,7 +848,7 @@ MapSource
 
 The ``RewriteMap`` directive must be used either in virtualhost context, or in global server context. This is because a ``RewriteMap`` is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a ``.htaccess`` file.
 
-TODO Example
+.. TODO Example
 
 Using a RewriteMap
 ``````````````````
@@ -824,7 +866,7 @@ Note in this example that the ``RewriteMap``, named 'examplemap', is passed an a
 
     RewriteRule ^ ${examplemap:%{REQUEST_URI}}
 
-TODO: DEFAULT RESULT
+.. TODO: DEFAULT RESULT
 
 RewriteMap Types
 ````````````````
@@ -921,12 +963,12 @@ If you're not sure what version you're running, you can get the ``httpd`` binary
 2.2 and earlier
 '''''''''''''''
 
-TODO: Discussion of why you can't use RewriteLog in .htaccess files
+.. TODO: Discussion of why you can't use RewriteLog in .htaccess files
 
 2.4 and later
 '''''''''''''
 
-TODO: Discussion of why you can't use rewrite logging in .htaccess files.
+.. TODO: Discussion of why you can't use rewrite logging in .htaccess files.
 
 Debugging rewrite rules
 ```````````````````````

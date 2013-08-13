@@ -24,19 +24,20 @@ Jeffrey Friedl.
 If you just want to know enough about regex to master mod_rewrite, read
 this chapter a few times, and that should be sufficient.
 
-The goal of this chapter is to introduce the building blocks - the basic vocabulary - and 
-then discuss some of the arcana of crafting your own regular expressions, as well as reading 
-those that others have bequeathed to you.
-
-If you are already reasonably familiar with regex syntax, you can safely skip 
-this chapter.
+The goal of this chapter is to introduce the building blocks - the basic 
+vocabulary - and then discuss some of the arcana of crafting your own 
+regular expressions, as well as reading those that others have bequeathed 
+to you.  If you are already reasonably familiar with regex syntax, you 
+can safely skip this chapter.
 
 The Building Blocks
 ```````````````````
 
-Regular expressions are a means to describe a text pattern (technically, it's any data, but 
-in the context of Apache httpd, we're primarily interested in text as it appears in URLs), so that you can look for that pattern in a block of data. The 
-best way to read any regular expression is one character at a time, so you need to know what 
+Regular expressions are a means to describe a text pattern (technically,
+it's any data, but in the context of Apache httpd, we're primarily 
+interested in text as it appears in URLs), so that you can look for 
+that pattern in a block of data. The best way to read any regular
+expression is one character at a time, so you need to know what 
 each character represents.
 
 These are the basic building blocks that you will use when writing regular expressions. If 
@@ -95,12 +96,6 @@ That pattern matches a string containing ``a``, followed by any character, follo
 that pattern matches the strings "abc", "ancient", and "warcraft", each of which contain 
 that pattern. It does not match "tragic", on the other hand, because there are two characters 
 between the a and the c. That is, the ``.`` by itself, matches a single character only.
-
-To be a bit more pedantic, it's worth noting that in regular expressions
-in general, ``.`` matches a byte, rather than a character. However, in
-the context of ``mod_rewrite``, where we're matching URLs that don't
-usually contain double-byte characters [#]_, we'll stick with the convention
-of saying that ``.`` matches a single character.
 
 The ``.`` character is very frequently used in connection with
 ``*`` to mean "match everything". You'll see the ``(.*)``
@@ -815,8 +810,7 @@ for the purpose of mod_rewrite, which doesn't require replace
 functionality or multi-line matches.
 
 RewriteRule generators
-----------------------
-
+``````````````````````
 
 You may find various websites that purport to be RewriteRule generators.
 I strongly encourage you to avoid these, and instead to learn how to
@@ -827,21 +821,21 @@ inefficient, or completely wrong.
 Summary
 -------
 
-Having a good grasp of Regular Expressions is a necessary prerequisite to working with 
-mod_rewrite. All too often, people try to build regular expressions by the brute-force method, 
-trying various different combinations at random until something seems to mostly work. This 
-results in expressions that are inefficient and fragile, as well as a great waste of time, and 
-much frustration.
+Having a good grasp of Regular Expressions is a necessary prerequisite 
+to working with mod_rewrite. All too often, people try to build regular 
+expressions by the brute-force method, trying various different 
+combinations at random until something seems to mostly work. This 
+results in expressions that are inefficient and fragile, as well as a 
+great waste of time, and much frustration.
 
-Keep a bookmark in this chapter, and refer back to it when you're trying to figure out what a particular regex is doing.
+Keep a bookmark in this chapter, and refer back to it when you're trying 
+to figure out what a particular regex is doing.
 
-Other recommended reference sources include the Perl regular expression documentation, 
-which you can find online at <http://www.perldoc.com/perl5.8.0/pod/perlre.html> or by typing 
-`perldoc perlre` at your command line, and the PCRE documentation, which you can find online at 
-<http://pcre.org/pcre.txt>. 
+Other recommended reference sources include the Perl regular expression 
+documentation, which you can find online at 
+<http://www.perldoc.com/perl5.8.0/pod/perlre.html> or by typing 
+`perldoc perlre` at your command line, and the PCRE documentation, which 
+you can find online at <http://pcre.org/pcre.txt>. 
 
 .. [#] See section on `Greedy matching`_ 
-
-.. [#] "Double-byte characters" refers to character encodings where all characters are encoded in two bytes. See <http://en.wikipedia.org/wiki/DBCS> for further details.
-
 

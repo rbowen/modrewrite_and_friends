@@ -511,6 +511,8 @@ The example given here will rewrite any request to index.php, giving the origina
     RewriteCond %{REQUEST_URI} !=/index.php
     RewriteRule ^(.*) /index.php?req=$1 [L,PT]
 
+See the :ref:`RewriteCond`_ chapter for further discussion of the ``RewriteCond`` directive.
+
 N - next
 ''''''''
 

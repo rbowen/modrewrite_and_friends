@@ -284,3 +284,4 @@ epub_copyright = u'2013, Rich Bowen'
 # Allow duplicate toc entries.
 #epub_tocdup = True
 
+# todo_include_todos = True

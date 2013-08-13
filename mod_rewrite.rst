@@ -154,10 +154,16 @@ If you don't have access to the main server configuration file, as it the case f
 
 We aim to help you do that at each step along this journey.
 
+.. index:: RewriteOptions
+.. _RewriteOptions:
+
 RewriteOptions
 --------------
 
+TODO Write this section
+
 .. _RewriteRule:
+.. index:: RewriteRule
 
 RewriteRule
 -----------
@@ -179,7 +185,16 @@ A `RewriteRule` directive has two required directives and optional flags. It loo
 
     RewriteRule PATTERN TARGET [FLAGS]
 
-The following sections will discuss each of those arguments in great detail.
+The following sections will discuss each of those arguments in great detail, but these are defined as:
+
+PATTERN
+    A regular expression to be applied to the requested URI.
+
+TARGET
+    What the URI will be rewritten to.
+
+FLAGS
+    Optional flags that modify the behavior of the rule.
 
 Pattern
 ```````

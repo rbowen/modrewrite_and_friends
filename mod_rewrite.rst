@@ -850,7 +850,7 @@ MapSource
 
 The ``RewriteMap`` directive must be used either in virtualhost context, or in global server context. This is because a ``RewriteMap`` is loaded at server startup time, rather than at request time, and, as such, cannot be specified in a ``.htaccess`` file.
 
-.. todO:: Example
+.. todo:: Example
 
 Using a RewriteMap
 ``````````````````

@@ -14,3 +14,4 @@ http://sphinx-doc.org/
 I'll document all the dependencies as soon as I figure them out. Let me
 know if stuff doesn't build.
 
+More details and various other shiny stuff at http://mod-rewrite.org/

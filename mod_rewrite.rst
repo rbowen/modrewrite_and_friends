@@ -511,7 +511,7 @@ The example given here will rewrite any request to index.php, giving the origina
     RewriteCond %{REQUEST_URI} !=/index.php
     RewriteRule ^(.*) /index.php?req=$1 [L,PT]
 
-See the :ref:`RewriteCond`_ chapter for further discussion of the ``RewriteCond`` directive.
+See the :ref:`RewriteCond` chapter for further discussion of the `RewriteCond` directive.
 
 N - next
 ''''''''
@@ -756,8 +756,8 @@ RewriteBase
 
 .. todo:: RewriteBase chapter
 
-.. _RewriteCond:
 .. index:: RewriteCond
+.. _RewriteCond:
 
 RewriteCond
 -----------
@@ -1033,6 +1033,7 @@ Examples
 .. todo::
 
 Query Strings
+.. index:: rewritemap_int
 '''''''''''''
 
 .. todo::
@@ -1102,8 +1103,8 @@ There are a number of different map types which may be used in a ``RewriteMap``.
 int
 '''
 
-\label{rewritemap_int}
 .. index:: RewriteMap!int
+.. index:: rewritemap_int
 
 An ``int`` map type is an internal function, pre-defined by ``mod_rewrite`` itself. There are four such functions:
 

@@ -29,15 +29,27 @@ mod_macro
 
 .. index:: mod_macro
 
+mod_proxy_express
+-----------------
+
+mod_vhost_alias
+---------------
+
 Conditional logging
 -------------------
 
 env=
 ````
 
+.. todo:: Using rewrite and [E] to effect env= conditional logging
+
+Per-module logging
+``````````````````
+
 Per-directory logging
 `````````````````````
 
 Piped logging
 `````````````
+
 

@@ -30,11 +30,8 @@ if the server is started up with a ``-D XYZ`` command line switch.
 
 Consider, for example a configuration as follows:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     <IfDefine TEST>
         ServerName test.example.com
     </IfDefine>
@@ -44,11 +41,8 @@ Consider, for example a configuration as follows:
 
 Now, you can start the server with a ``-D TEST`` command line option:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     httpd -D TEST -k restart
 
 This will result in the first of the two ``IfDefine`` blocks being
@@ -64,11 +58,8 @@ at startup) to start the servers up in different configurations.
 ``<IfDefine>`` blocks can be nested, so that you can combine several
 conditions, as seen in this example from the docs:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     <IfDefine ReverseProxy>
         LoadModule proxy_module   modules/mod_proxy.so
         LoadModule proxy_http_module modules/mod_proxy_http.so
@@ -104,11 +95,8 @@ directive.
 
 Consider this variation on the earlier example:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     <IfDefine TEST>
         Define servername test.example.com
     </IfDefine>
@@ -131,11 +119,8 @@ In this example, as before, the server should be started with a
 Or you can use a ``Define`` directive to define something, such as a
 file path, which is then used several times in the configuration:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     Define docroot /var/www/vhosts/www.example.com
 
     DocumentRoot ${docroot}
@@ -144,10 +129,6 @@ file path, which is then used several times in the configuration:
         Require all granted
     </Directory>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
 <If>, <Elsif>, and <Else>
 -------------------------
 
@@ -181,11 +162,8 @@ cookie itself. So, when someone accesses your site using the hostname
 In previous versions of httpd, you may have used ``mod_rewrite`` to
 perform this redirection, but ``<If>`` provides a more intuitive syntax:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     # Compare the host name to example.com and 
     # redirect to www.example.com if it matches
     <If "%{HTTP_HOST} == 'example.com'">
@@ -203,11 +181,8 @@ their pages - so-called image hotlinking. This is usually done by
 comparing the HTTP_REFERER variable on a request to these images to
 ensure that the request originated within a page on your site:
 
-<<<<<<< HEAD
 ::
 
-=======
->>>>>>> b59724a3d3ebc771eea17877fbc54e426d662196
     # Images ...
     <FilesMatch "\.(gif|jpe?g|png)$">
         # Check to see that the referer is right

@@ -190,7 +190,7 @@ In the example below, where a trailing slash is used, requests to /private2/ and
 
 When to use <Location>
 Use <Location> to apply directives to content that lives outside the filesystem. For content that lives in the filesystem, use <Directory> and <Files>. An exception is <Location />, which is an easy way to apply a configuration to the entire server.
-For all origin (non-proxy) requests, the URL to be matched is a URL-path of the form /path/. No scheme, hostname, port, or query string may be included. For proxy requests, the URL to be matched is of the form scheme://servername/path, and you must include the prefix.
+For all origin (non-proxy) requests, the URL to be matched is a URL-path of the form /path/. No scheme, hostname, port, or query string may be included. For proxy requests, the URL to be matched is of the form `scheme://servername/path`, and you must include the prefix.
 
 .. index:: Wildcards
 .. index:: Glob matching
@@ -205,7 +205,12 @@ Regular expressions can also be used, with the addition of the ~ character. For 
         #...
     </Location>
 
-would match URLs that contained the substring /extra/data or /special/data. The directive <LocationMatch> behaves identical to the regex version of <Location>, and is preferred, for the simple reason that ~ is hard to distinguish from - in many fonts.
+would match URLs that contained the substring /extra/data or /special/data. The directive <LocationMatch> behaves identically to the regex version of <Location>, and is preferred, for the simple reason that ~ is hard to distinguish from - in many fonts, leading to configuration errors when you're following examples.
+
+::
+    <LocationMatch "/(extra|special)/data">
+        #...
+    </LocationMatch>
 
 The <Location> functionality is especially useful when combined with the SetHandler directive. For example, to enable status requests, but allow them only from browsers at example.com, you might use:
 
@@ -219,7 +224,12 @@ The <Location> functionality is especially useful when combined with the SetHand
 Virtual Hosts
 -------------
 
-.. todo:: Virtual Hosts
+Rather than running a separate physical server, or separate instance of httpd, for each website, it is common practice instead to virtual host sites. Virtual hosting refers to running more than one web site on the same web server.
+
+Virtual hosts can be name-based, or IP based, depending on whether you
+choose to dedicate an IP address to each virtual host. Name-based
+virtual hosting is more common, but there are scenarios in which
+IP-based hosting may be preferred.
 
 Proxying
 --------
